@@ -1,0 +1,143 @@
+# Routing-Paket je Land für GSAK-NG (#442): Geofabrik-Auszug → Valhalla 3.9.0 → Paketformat 1 → Release → katalog.json.
+# Nur von Hand («Run workflow»). Öffentliches Repository: Laufzeit kostenlos.
+name: routing-land
+
+on:
+  workflow_dispatch:
+    inputs:
+      land:
+        description: "Land"
+        type: choice
+        options: [ch, li, at, de]
+        default: ch
+
+permissions:
+  contents: write
+
+concurrency:
+  group: katalog
+  cancel-in-progress: false
+
+jobs:
+  paket:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 340
+    env:
+      LAND: ${{ inputs.land }}
+      VALHALLA_IMAGE: ghcr.io/valhalla/valhalla:3.9.0
+      VALHALLA_MOBILE: "0.6.4"
+      TEIL_MB: "1900"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Land
+        run: |
+          case "$LAND" in
+            ch) NAME="Schweiz";       NAME_EN="Switzerland";   EXTRACT="europe/switzerland" ;;
+            li) NAME="Liechtenstein"; NAME_EN="Liechtenstein"; EXTRACT="europe/liechtenstein" ;;
+            at) NAME="Österreich";    NAME_EN="Austria";       EXTRACT="europe/austria" ;;
+            de) NAME="Deutschland";   NAME_EN="Germany";       EXTRACT="europe/germany" ;;
+            *) echo "Unbekanntes Land $LAND"; exit 1 ;;
+          esac
+          { echo "NAME=$NAME"; echo "NAME_EN=$NAME_EN"; echo "EXTRACT=$EXTRACT"; } >> "$GITHUB_ENV"
+
+      - name: Platz schaffen
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+          df -h /
+
+      - name: Werkzeuge
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q osmium-tool jq zip
+          docker pull "$VALHALLA_IMAGE"
+
+      - name: OSM-Auszug
+        run: |
+          mkdir -p work pkg out
+          curl -fsSL -o work/land.osm.pbf "https://download.geofabrik.de/${EXTRACT}-latest.osm.pbf"
+          OSM_DATE=$(osmium fileinfo -g header.option.osmosis_replication_timestamp work/land.osm.pbf | cut -c1-10)
+          BOX=$(osmium fileinfo -e -g data.bbox work/land.osm.pbf | tr -d '()' | tr ' ' ',')
+          echo "$BOX" | grep -Eq '^-?[0-9.]+,-?[0-9.]+,-?[0-9.]+,-?[0-9.]+$' || { echo "Bounding Box nicht lesbar: $BOX"; exit 1; }
+          echo "OSM_DATE=$OSM_DATE" >> "$GITHUB_ENV"
+          echo "BBOX=$BOX" >> "$GITHUB_ENV"
+          echo "Stand $OSM_DATE, Bounding Box $BOX"
+          ls -la work
+
+      - name: Valhalla-Kacheln
+        run: |
+          cd work
+          docker run --rm -v "$PWD:/data" -w /data "$VALHALLA_IMAGE" bash -c "
+            set -e
+            valhalla_build_config --mjolnir-tile-dir /data/valhalla_tiles --mjolnir-tile-extract /data/valhalla_tiles.tar \
+              --additional-data-elevation /data/elevation > /data/valhalla.json
+            valhalla_build_elevation --from-tiles --decompress -c /data/valhalla.json -v || \
+              valhalla_build_elevation -b '$BBOX' -c /data/valhalla.json -v
+            valhalla_build_tiles -c /data/valhalla.json /data/land.osm.pbf
+            valhalla_build_extract -c /data/valhalla.json -v
+          "
+          sudo chown -R "$USER" .
+          rm -rf valhalla_tiles elevation
+
+      - name: Paket (Format 1)
+        run: |
+          cp work/valhalla_tiles.tar work/valhalla.json pkg/
+          curl -fsSL -o pkg/tzdata.tar "https://raw.githubusercontent.com/Rallista/valhalla-mobile/${VALHALLA_MOBILE}/apple/Sources/Valhalla/SupportData/tzdata.tar"
+          IFS=, read -r W S E N <<< "$BBOX"
+          jq -n --arg region "$NAME" --arg land "$LAND" --arg created "$(date -u +%F)" --arg osm "$OSM_DATE" \
+            --argjson w "$W" --argjson s "$S" --argjson e "$E" --argjson n "$N" \
+            '{format: 1, engine: "valhalla", engineVersion: "3.9.0", region: $region, country: $land, bbox: [$w, $s, $e, $n],
+              created: $created, osmDate: $osm, attribution: "© OpenStreetMap-Mitwirkende (ODbL)"}' > pkg/gsakng-routing.json
+          cat pkg/gsakng-routing.json
+          ZIP="gsakng-routing-${LAND}.zip"
+          (cd pkg && zip -0 "../out/$ZIP" gsakng-routing.json valhalla.json valhalla_tiles.tar tzdata.tar)
+          { echo "ZIP=$ZIP"; echo "TAG=routing-${LAND}-${OSM_DATE}"; } >> "$GITHUB_ENV"
+          ls -la pkg out
+
+      - name: Teile über 1,9 GB
+        run: |
+          cd out
+          SIZE=$(stat -c %s "$ZIP")
+          SHA=$(sha256sum "$ZIP" | cut -d' ' -f1)
+          if [ "$SIZE" -gt $((TEIL_MB * 1024 * 1024)) ]; then
+            split -b "${TEIL_MB}M" -d -a 3 --numeric-suffixes=1 "$ZIP" "$ZIP."
+            rm "$ZIP"
+          fi
+          { echo "SIZE=$SIZE"; echo "SHA=$SHA"; } >> "$GITHUB_ENV"
+          ls -la
+
+      - name: Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo "Routing-Paket **$NAME** für GSAK-NG (Paketformat 1, Valhalla 3.9.0)."
+            echo
+            echo "- OSM-Stand: $OSM_DATE (Geofabrik \`$EXTRACT\`)"
+            echo "- Grösse: $((SIZE / 1024 / 1024)) MB, SHA-256 \`$SHA\`"
+            echo "- Daten © OpenStreetMap-Mitwirkende, ODbL 1.0"
+          } > notes.md
+          gh release delete "$TAG" --yes --cleanup-tag 2>/dev/null || true
+          gh release create "$TAG" out/* --title "Routing $NAME ($OSM_DATE)" --notes-file notes.md
+
+      - name: Katalog
+        run: |
+          BASE="https://github.com/${GITHUB_REPOSITORY}/releases/download/${TAG}"
+          FILES=$(cd out && ls | jq -R . | jq -s --arg base "$BASE" 'map($base + "/" + .)')
+          IFS=, read -r W S E N <<< "$BBOX"
+          git pull -q --rebase
+          jq --arg land "$LAND" --arg name "$NAME" --arg name_en "$NAME_EN" --arg osm "$OSM_DATE" --arg tag "$TAG" \
+             --arg sha "$SHA" --argjson size "$SIZE" --argjson files "$FILES" --arg now "$(date -u +%FT%TZ)" \
+             --argjson w "$W" --argjson s "$S" --argjson e "$E" --argjson n "$N" '
+            .aktualisiert = $now |
+            .routing = ([.routing[] | select(.land != $land)] + [{
+              land: $land, name: {de: $name, en: $name_en}, format: 1, engine: "valhalla", engineVersion: "3.9.0",
+              osmDate: $osm, bbox: [$w, $s, $e, $n], groesse: $size, sha256: $sha, release: $tag, dateien: $files
+            }] | sort_by(.land))' katalog.json > katalog.neu
+          mv katalog.neu katalog.json
+          cat katalog.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add katalog.json
+          git commit -m "Katalog: Routing $NAME ($OSM_DATE)"
+          git push
