@@ -110,7 +110,7 @@ def main():
     groesse, sha = schreibe(args.out, "basis.zip", {**kopf, "teil": "basis", "typ": "basis", "bbox": [w, s, e, n]},
                             [(args.config, "valhalla.json"), (args.tzdata, "tzdata.tar")], {"root": args.tiles, "dateien": basis})
     teile.append({"id": "basis", "typ": "basis", "name": {"de": "Grundnetz", "en": "Base network"}, "bbox": [w, s, e, n],
-                  "datei": "basis.zip", "url": f"{args.base_url}/basis.zip", "groesse": groesse, "sha256": sha, "kacheln": len(basis)})
+                  "datei": "basis.zip", "url": f"{args.base_url}/basis.zip", "groesse": groesse, "sha256": sha, "kacheln": len(basis), "ebenen": [0, 1]})
     print(f"basis: {len(basis)} Kacheln, {groesse // 1048576} MB")
 
     ebene2 = [(tid, rel) for level, tid, rel in alle if level == 2]
@@ -118,6 +118,7 @@ def main():
         flaeche = lese_poly(os.path.join(args.poly, g["id"] + ".poly"))
         p = prep(flaeche)
         dateien = [rel for tid, rel in ebene2 if p.intersects(kachel_box(2, tid))]
+        ids = sorted(tid for tid, rel in ebene2 if p.intersects(kachel_box(2, tid)))
         if not dateien:
             print(f"{g['id']}: keine Kacheln – übersprungen")
             continue
@@ -126,7 +127,9 @@ def main():
         groesse, sha = schreibe(args.out, datei, {**kopf, "teil": g["id"], "typ": g["typ"], "land": g["land"], "name": g["name"],
                                                   "bbox": [gw, gs, ge, gn]}, [], {"root": args.tiles, "dateien": dateien})
         teile.append({"id": g["id"], "typ": g["typ"], "land": g["land"], "name": g["name"], "bbox": [gw, gs, ge, gn],
-                      "datei": datei, "url": f"{args.base_url}/{datei}", "groesse": groesse, "sha256": sha, "kacheln": len(dateien)})
+                      "datei": datei, "url": f"{args.base_url}/{datei}", "groesse": groesse, "sha256": sha,
+                      # Ebene-2-Kacheln des Gebiets: die App prüft damit genau, ob ein Punkt abgedeckt ist (Bounding Boxen überlappen an Grenzen)
+                      "kacheln": ids})
         print(f"{g['id']}: {len(dateien)} Kacheln, {groesse // 1048576} MB")
         if groesse > 1900 * 1048576:
             sys.exit(f"{datei} grösser als 1,9 GB – Gebiet aufteilen")

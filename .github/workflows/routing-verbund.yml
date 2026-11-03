@@ -107,7 +107,7 @@ jobs:
           git pull -q --rebase
           jq --slurpfile v out/verbund.json --arg now "$(date -u +%FT%TZ)" '.aktualisiert = $now | .verbund = $v[0]' katalog.json > katalog.neu
           mv katalog.neu katalog.json
-          jq '.verbund | del(.teile[].kacheln)' katalog.json
+          jq '.verbund | .teile[] |= (.kacheln |= (if type == "array" then length else . end))' katalog.json
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add katalog.json
