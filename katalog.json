@@ -1,6 +1,30 @@
 {
   "katalog": 1,
-  "aktualisiert": null,
+  "aktualisiert": "2026-11-03T15:10:45Z",
   "hinweis": "Verzeichnis der Offline-Pakete für GSAK-NG. Daten © OpenStreetMap-Mitwirkende (ODbL).",
-  "routing": []
+  "routing": [
+    {
+      "land": "ch",
+      "name": {
+        "de": "Schweiz",
+        "en": "Switzerland"
+      },
+      "format": 1,
+      "engine": "valhalla",
+      "engineVersion": "3.9.0",
+      "osmDate": "2026-11-02",
+      "bbox": [
+        5.6253521,
+        45.7224279,
+        10.6848183,
+        48.0632664
+      ],
+      "groesse": 663765769,
+      "sha256": "a1e8b521688e3a7e3c109d73f56bc584e04aa36aaa8eb4d40eac1b424056ee31",
+      "release": "routing-ch-2026-11-02",
+      "dateien": [
+        "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-ch-2026-11-02/gsakng-routing-ch.zip"
+      ]
+    }
+  ]
 }
