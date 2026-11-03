@@ -24,7 +24,8 @@ from gebiete import gebiete, laender  # noqa: E402
 
 # Valhalla-Ebenen: Kantenlänge der Kacheln in Grad
 GROESSE = {0: 4.0, 1: 1.0, 2: 0.25}
-TILE = re.compile(r"^(\d)/(\d{3})/(\d{3})/(\d{3})\.gph$")
+# Valhalla füllt die Kachel-ID je Ebene auf ein Vielfaches von 3 Ziffern auf: Ebene 0 und 1 «0/003/015.gph», Ebene 2 «2/000/782/667.gph»
+TILE = re.compile(r"^(\d)/((?:\d{3}/)+\d{3})\.gph$")
 
 
 def lese_poly(path):
@@ -62,7 +63,7 @@ def kacheln(tiles):
             rel = os.path.relpath(os.path.join(root, f), tiles).replace(os.sep, "/")
             m = TILE.match(rel)
             if m:
-                yield int(m.group(1)), int(m.group(2) + m.group(3) + m.group(4)), rel
+                yield int(m.group(1)), int(m.group(2).replace("/", "")), rel
 
 
 def sha256(path):
@@ -107,6 +108,8 @@ def main():
     teile = []
 
     basis = [rel for level, _, rel in alle if level in (0, 1)]
+    if not basis:
+        sys.exit("Grundnetz ohne Kacheln (Ebenen 0 und 1) – Kachelnamen prüfen")
     groesse, sha = schreibe(args.out, "basis.zip", {**kopf, "teil": "basis", "typ": "basis", "bbox": [w, s, e, n]},
                             [(args.config, "valhalla.json"), (args.tzdata, "tzdata.tar")], {"root": args.tiles, "dateien": basis})
     teile.append({"id": "basis", "typ": "basis", "name": {"de": "Grundnetz", "en": "Base network"}, "bbox": [w, s, e, n],
