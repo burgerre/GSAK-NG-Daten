@@ -1,0 +1,111 @@
+# Relief-Messung für GSAK-NG (#681): Grösse und Machbarkeit von Offline-Höhenlinien und Schattierung je Land.
+# Aus Copernicus DEM GLO-30 (AWS Open Data) für ein Geofabrik-Gebiet:
+#   terrain-mapbox.pmtiles     Terrain-RGB (Mapbox-Kodierung, 0,1 m) für MapLibre-Hillshade
+#   terrain-terrarium.pmtiles  dasselbe in Terrarium-Kodierung, auf ganze Meter gerundet (Vergleich)
+#   hoehenlinien.pmtiles       Vektorkacheln, Ebene «contour» (ele, idx): 100 m ab z9, 20 m ab z11, 10 m ab z13
+# Nur Messung: kein Release, kein Katalog. Ergebnis als Actions-Artefakt (7 Tage). Nur von Hand («Run workflow»).
+name: relief-messung
+
+on:
+  workflow_dispatch:
+    inputs:
+      gebiet:
+        description: Geofabrik-Polygon
+        default: europe/switzerland
+      maxzoom:
+        description: Höchster Zoom der Terrain-Kacheln
+        default: "12"
+
+permissions:
+  contents: read
+
+jobs:
+  messung:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    env:
+      TIPPECANOE: "2.79.0"
+      PMTILES: "1.31.2"
+      ZMIN: "5"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Werkzeuge
+        run: |
+          beginn=$(date +%s); echo "beginn=$beginn" >> "$GITHUB_ENV"
+          sudo apt-get update -q
+          sudo apt-get install -y -q gdal-bin python3-gdal python3-numpy python3-pil python3-shapely build-essential libsqlite3-dev zlib1g-dev
+          git clone -q --depth 1 -b "$TIPPECANOE" https://github.com/felt/tippecanoe /tmp/tippecanoe
+          make -s -C /tmp/tippecanoe -j"$(nproc)" && sudo make -s -C /tmp/tippecanoe install
+          curl -fsSL "https://github.com/protomaps/go-pmtiles/releases/download/v${PMTILES}/go-pmtiles_${PMTILES}_Linux_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin pmtiles
+          gdalinfo --version; tippecanoe --version; pmtiles version
+          mkdir -p work/dem out
+          printf 'Werkzeuge\t%s\n' $(( $(date +%s) - beginn )) > out/zeiten.txt
+          df -h /
+
+      - name: Höhenmodell
+        run: |
+          t=$(date +%s)
+          curl -fsSL -o work/gebiet.poly "https://download.geofabrik.de/${{ inputs.gebiet }}.poly"
+          python3 relief/relief.py gebiet work/gebiet.poly work/gebiet.geojson 0.02 > work/kacheln.txt
+          python3 relief/relief.py gebiet work/gebiet.poly work/hoehen.geojson 0.005 > /dev/null
+          while read -r k; do
+            curl -fsSL -o "work/dem/$k.tif" "https://copernicus-dem-30m.s3.amazonaws.com/$k/$k.tif" || echo "fehlt: $k"
+          done < work/kacheln.txt
+          ls work/dem | wc -l; du -sh work/dem
+          printf 'Höhenmodell laden (%s GLO-30-Kacheln)\t%s\n' "$(ls work/dem | wc -l)" $(( $(date +%s) - t )) >> out/zeiten.txt
+
+      - name: Terrain-RGB
+        run: |
+          t=$(date +%s)
+          python3 relief/relief.py terrain work/gebiet.geojson work/dem "$ZMIN" "${{ inputs.maxzoom }}" out
+          mv out/dem.vrt work/
+          for a in mapbox terrarium; do pmtiles convert "out/terrain-$a.mbtiles" "out/terrain-$a.pmtiles"; done
+          printf 'Terrain-RGB z%s–%s (zwei Kodierungen, PNG und WebP)\t%s\n' "$ZMIN" "${{ inputs.maxzoom }}" $(( $(date +%s) - t )) >> out/zeiten.txt
+
+      - name: Höhenlinien
+        run: |
+          t=$(date +%s)
+          gdalwarp -q -cutline work/hoehen.geojson -crop_to_cutline -dstnodata -32768 -multi -wo NUM_THREADS=ALL_CPUS \
+            -co TILED=YES -co COMPRESS=DEFLATE work/dem.vrt work/hoehen.tif
+          gdal_contour -q -i 10 -a ele -snodata -32768 -f GeoJSONSeq work/hoehen.tif work/roh.geojsons
+          python3 relief/relief.py hoehen work/roh.geojsons work/hoehen.geojsons
+          rm work/roh.geojsons; ls -la work
+          tippecanoe -q -o out/hoehenlinien.mbtiles -l contour -Z9 -z14 -P --no-feature-limit --no-tile-size-limit \
+            --attribution "Copernicus DEM GLO-30 © DLR e.V. 2010-2014 und © Airbus Defence and Space GmbH 2014-2018, bereitgestellt unter COPERNICUS durch die Europäische Union und ESA" \
+            work/hoehen.geojsons
+          pmtiles convert out/hoehenlinien.mbtiles out/hoehenlinien.pmtiles
+          printf 'Höhenlinien (gdal_contour, tippecanoe z9–14)\t%s\n' $(( $(date +%s) - t )) >> out/zeiten.txt
+
+      - name: Bericht
+        if: always()
+        run: |
+          printf 'gesamt\t%s\n' $(( $(date +%s) - beginn )) >> out/zeiten.txt
+          python3 relief/relief.py bericht out out/zeiten.txt
+          {
+            echo "Gebiet \`${{ inputs.gebiet }}\`, Höhenquelle Copernicus DEM GLO-30"
+            echo
+            cat out/bericht.md
+          } >> "$GITHUB_STEP_SUMMARY"
+          cp relief/QUELLEN.md relief/LIZENZEN.md out/
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: relief-bericht
+          path: |
+            out/bericht.md
+            out/zeiten.txt
+            out/QUELLEN.md
+            out/LIZENZEN.md
+          retention-days: 7
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: relief-pmtiles
+          path: |
+            out/*.pmtiles
+            out/QUELLEN.md
+            out/LIZENZEN.md
+          retention-days: 7
+          compression-level: 0
