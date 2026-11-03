@@ -1,6 +1,6 @@
 {
   "katalog": 1,
-  "aktualisiert": "2026-11-03T18:14:07Z",
+  "aktualisiert": "2026-11-03T19:08:41Z",
   "hinweis": "Verzeichnis der Offline-Pakete für GSAK-NG. Daten © OpenStreetMap-Mitwirkende (ODbL).",
   "routing": [
     {
@@ -131,9 +131,9 @@
         ],
         "datei": "basis.zip",
         "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-mitteleuropa-2026-11-02/basis.zip",
-        "groesse": 483813,
-        "sha256": "26722b6465e0f92521aeb4518ddd5b14e2d8d5f91ec12b95c3901d3fef305d05",
-        "kacheln": 0,
+        "groesse": 327878291,
+        "sha256": "ddb54117bf8a17433ae3671ce06ff861b823b98c728077ee6d9bb8d49915dde4",
+        "kacheln": 110,
         "ebenen": [
           0,
           1
@@ -155,8 +155,8 @@
         ],
         "datei": "ch.zip",
         "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-mitteleuropa-2026-11-02/ch.zip",
-        "groesse": 299940301,
-        "sha256": "c96fd244010b0b94a4cea2f3498d48cef89bc972f1ddc8e5b7053bd5064e472f",
+        "groesse": 299940315,
+        "sha256": "371cb9dc8cc65e6081b55e4bf4f97a5f75fc106e07aa1253d3a93b58607027c4",
         "kacheln": [
           782667,
           782668,
@@ -293,7 +293,7 @@
         "datei": "li.zip",
         "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-mitteleuropa-2026-11-02/li.zip",
         "groesse": 19228441,
-        "sha256": "c5714ac37f541e1e92240ca2c3075cf713f6aff08e3c5bf66a9e91d9b8d970d3",
+        "sha256": "b195a1e88d4b734cffe9fe843e3a45147b9e391ab6967cef337cab4396d10ac9",
         "kacheln": [
           789877,
           789878,
@@ -316,8 +316,8 @@
         ],
         "datei": "at.zip",
         "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-mitteleuropa-2026-11-02/at.zip",
-        "groesse": 390869106,
-        "sha256": "481b4aefa88b53efa3c84a1c9b50a5f5080c37cd8a7ea7fae4e2a8587c9ed343",
+        "groesse": 390869114,
+        "sha256": "f4aa81ae63f48b9ab44bbbb9535b9f1cdca2dd4136176071fcab89b71d7a4024",
         "kacheln": [
           785575,
           785576,
@@ -553,8 +553,8 @@
         ],
         "datei": "de-baden-wuerttemberg.zip",
         "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-mitteleuropa-2026-11-02/de-baden-wuerttemberg.zip",
-        "groesse": 370915306,
-        "sha256": "bf54f1fd54cf12c9cbbadb9c24792db1525bf18b70cf46db09815caa89e08260",
+        "groesse": 370915289,
+        "sha256": "c5900a648015c6c76628d68d84c3af0338e90c8d7964edebfff6aaf919119b72",
         "kacheln": [
           792750,
           792751,
@@ -669,8 +669,8 @@
         ],
         "datei": "de-bayern.zip",
         "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-mitteleuropa-2026-11-02/de-bayern.zip",
-        "groesse": 503916450,
-        "sha256": "161f47130811358ccdda20a3c8f3fc8ba5f7d570558e40f7ad94f3d19c27cf67",
+        "groesse": 503916501,
+        "sha256": "dcd9ad34d745a999cf6fc137c91d8dc7d215bf1153a19ae1ed0d4243aa7120ee",
         "kacheln": [
           791319,
           791320,
@@ -872,8 +872,8 @@
         ],
         "datei": "de-berlin.zip",
         "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-mitteleuropa-2026-11-02/de-berlin.zip",
-        "groesse": 76438528,
-        "sha256": "ba7bfb67376fced694a9e16eabe3e2e2aeeeee4688876a1f4bcf166354ab216b",
+        "groesse": 76438542,
+        "sha256": "4c9d2ae0fda913014b86d8b4b07c5472c8c2ad407cbb910974eec722ee86601b",
         "kacheln": [
           820132,
           820133,
@@ -900,8 +900,8 @@
         ],
         "datei": "de-brandenburg.zip",
         "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-mitteleuropa-2026-11-02/de-brandenburg.zip",
-        "groesse": 158549717,
-        "sha256": "4ea9c6e2f522d77b0a0756ac1611b416b9c8aa90720ac8aa4cdd5769de45d0e7",
+        "groesse": 158549751,
+        "sha256": "e7f541b3b840649aefbada61363cf5e9d23b01a4d74dc809c4f6283396b3ceab",
         "kacheln": [
           814372,
           814373,
@@ -1014,8 +1014,8 @@
         ],
         "datei": "de-bremen.zip",
         "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-mitteleuropa-2026-11-02/de-bremen.zip",
-        "groesse": 18576016,
-        "sha256": "74de2b8766d0d4cd9ed3a876d047e63feafc19fccf89e3af87eff655def6456d",
+        "groesse": 18576006,
+        "sha256": "91b615f5491aa2944bb246d48757c2c861ae952f3f8369644080173ad4254005",
         "kacheln": [
           824433,
           824434,
@@ -1042,8 +1042,8 @@
         ],
         "datei": "de-hamburg.zip",
         "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-mitteleuropa-2026-11-02/de-hamburg.zip",
-        "groesse": 41634287,
-        "sha256": "e9a2169a9ce8fed24e53d8c370ec5be6f41a4fae334ece4ad893877370d81d11",
+        "groesse": 41634304,
+        "sha256": "c7060389e65a77f73a4760c3958c845e840c0f7be32e601cb65bd85b2204b707",
         "kacheln": [
           825879,
           825880,
@@ -1076,8 +1076,8 @@
         ],
         "datei": "de-hessen.zip",
         "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-mitteleuropa-2026-11-02/de-hessen.zip",
-        "groesse": 216745061,
-        "sha256": "5b468f99e7444a08125337a0d6ef3a5ecdcfa6dba53483a8023b8b4970d226a1",
+        "groesse": 216745082,
+        "sha256": "49010b5d3eb3d07600e5b5b891826addc05652fdb0279283fa18807079e13417",
         "kacheln": [
           802835,
           802836,
@@ -1165,8 +1165,8 @@
         ],
         "datei": "de-mecklenburg-vorpommern.zip",
         "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-mitteleuropa-2026-11-02/de-mecklenburg-vorpommern.zip",
-        "groesse": 62229849,
-        "sha256": "316b92c00c69fd2931e33dbab5f7ec21e172ea9b6ffff89d06ca5018e1ba6d89",
+        "groesse": 62229868,
+        "sha256": "1aa7493396b5b3e47526effff22572ad2aa787207b67a1abac3dcd7d2bd27afa",
         "kacheln": [
           824444,
           824445,
@@ -1285,8 +1285,8 @@
         ],
         "datei": "de-niedersachsen.zip",
         "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-mitteleuropa-2026-11-02/de-niedersachsen.zip",
-        "groesse": 277984175,
-        "sha256": "d517015f7f8dbd09c0945906c8d09bbd01df4d6cfb8654e62b099fd1c60a55c2",
+        "groesse": 277984166,
+        "sha256": "f824e5eacb15a2c4b2b90ada27cc77f9886b46ca0675d87fc3c45c5be0ceb44f",
         "kacheln": [
           814358,
           814359,
@@ -1459,8 +1459,8 @@
         ],
         "datei": "de-nordrhein-westfalen.zip",
         "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-mitteleuropa-2026-11-02/de-nordrhein-westfalen.zip",
-        "groesse": 374433084,
-        "sha256": "3d632793595a7bde2fb19439ba11330ae6eb69a219c88052fd46d0a6ffb6eb34",
+        "groesse": 374433168,
+        "sha256": "36f9e8719fc920764d101be1ddf75d75e58d1afe7410dd3b006ce1d828e8ef91",
         "kacheln": [
           808584,
           808585,
@@ -1584,8 +1584,8 @@
         ],
         "datei": "de-rheinland-pfalz.zip",
         "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-mitteleuropa-2026-11-02/de-rheinland-pfalz.zip",
-        "groesse": 191384957,
-        "sha256": "7fc329babed79b669e4dd44080ad1cebf4e8d07e0be4c30b35c9628bb58693ca",
+        "groesse": 191384971,
+        "sha256": "1cd13c886063ffe455afb54f3b868b166a4d73f22dbf6b626202213ca3f8543c",
         "kacheln": [
           799952,
           799953,
@@ -1666,8 +1666,8 @@
         ],
         "datei": "de-saarland.zip",
         "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-mitteleuropa-2026-11-02/de-saarland.zip",
-        "groesse": 27724715,
-        "sha256": "bd7a2f97a4a3e4ed2919c56933c78585933394c91508725a21eddb3ac546e01a",
+        "groesse": 27724686,
+        "sha256": "f00803034ae6e4b8c5a1dcefb7ce446dc7db4fa0269f3e4e6fcf1d605d66ac71",
         "kacheln": [
           801386,
           801387,
@@ -1701,8 +1701,8 @@
         ],
         "datei": "de-sachsen.zip",
         "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-mitteleuropa-2026-11-02/de-sachsen.zip",
-        "groesse": 138113012,
-        "sha256": "9a1df4c55f2df4b16b54a13cdc005fafabddaf667726a34e0c4ccdc3cbb39e5a",
+        "groesse": 138113002,
+        "sha256": "df53e39d805319f4f5aef2bc14aaafa918b9a4743eb595e0af63fa4907ecc91b",
         "kacheln": [
           807168,
           807169,
@@ -1786,8 +1786,8 @@
         ],
         "datei": "de-sachsen-anhalt.zip",
         "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-mitteleuropa-2026-11-02/de-sachsen-anhalt.zip",
-        "groesse": 97093808,
-        "sha256": "b14e54427200e141b5695f8619cc1df0fc5fe77ef54ff69566f3eceea6cf52e7",
+        "groesse": 97093838,
+        "sha256": "2963d92d9be6b4e53eadd3182927550d1ec687b80a4b801cb29837afca718590",
         "kacheln": [
           811487,
           811488,
@@ -1878,8 +1878,8 @@
         ],
         "datei": "de-schleswig-holstein.zip",
         "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-mitteleuropa-2026-11-02/de-schleswig-holstein.zip",
-        "groesse": 94689727,
-        "sha256": "1c9e74bc4f2e735e918e8a59777ff1ae2410aef9ae82fa130a68cb9b8e3aeb68",
+        "groesse": 94689748,
+        "sha256": "de6416e7e3f1721982b020d6afb67cee45183f92ee41123e87450acdace0b247",
         "kacheln": [
           825880,
           825881,
@@ -1977,8 +1977,8 @@
         ],
         "datei": "de-thueringen.zip",
         "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-mitteleuropa-2026-11-02/de-thueringen.zip",
-        "groesse": 109263691,
-        "sha256": "090fa1cb4c7e1b9c59dfba7b725588a81b0aa388afb6af798e63fdd3c5c86037",
+        "groesse": 109263717,
+        "sha256": "902f69f044f9738499b37cf65d6912b92f1e9a893a2e05f9adc786cfa4e0aa76",
         "kacheln": [
           807162,
           807163,
