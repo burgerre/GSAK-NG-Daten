@@ -53,7 +53,26 @@ def laender():
             for land, _, de, en in LAENDER]
 
 
+def bbox(poly_dir):
+    """Umriss aller Gebietspolygone (lonMin,latMin,lonMax,latMax). Der Bounding-Box-Kopf der zusammengeführten OSM-Datei taugt nicht:
+    Relationen (Fähren, Inseln) reichen weit hinaus (beim ersten Lauf -20..28° Länge)."""
+    import glob
+    xs, ys = [], []
+    for path in glob.glob(f"{poly_dir}/*.poly"):
+        with open(path, encoding="utf-8") as f:
+            for line in f:
+                parts = line.split()
+                if len(parts) >= 2:
+                    try:
+                        xs.append(float(parts[0])); ys.append(float(parts[1]))
+                    except ValueError:
+                        pass
+    return f"{min(xs):.5f},{min(ys):.5f},{max(xs):.5f},{max(ys):.5f}"
+
+
 if __name__ == "__main__":
+    if "--bbox" in sys.argv:
+        print(bbox(sys.argv[sys.argv.index("--bbox") + 1]))
     if "--list" in sys.argv:
         for g in gebiete():
             print(f"{g['id']}\t{g['poly']}")

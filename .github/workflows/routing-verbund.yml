@@ -54,7 +54,7 @@ jobs:
           echo "OSM_DATE=$OSM_DATE" >> "$GITHUB_ENV"
           osmium merge -o work/verbund.osm.pbf work/pbf/*.osm.pbf
           rm -rf work/pbf
-          BOX=$(osmium fileinfo -e -g data.bbox work/verbund.osm.pbf | tr -d '()' | tr ' ' ',')
+          BOX=$(python3 verbund/gebiete.py --bbox work/poly)
           echo "BBOX=$BOX" >> "$GITHUB_ENV"
           echo "Stand $OSM_DATE, Bounding Box $BOX"
           ls -la work work/poly
@@ -79,7 +79,7 @@ jobs:
         run: |
           curl -fsSL -o work/tzdata.tar "https://raw.githubusercontent.com/Rallista/valhalla-mobile/${VALHALLA_MOBILE}/apple/Sources/Valhalla/SupportData/tzdata.tar"
           python3 verbund/teile.py --tiles work/tiles --poly work/poly --config work/valhalla.json --tzdata work/tzdata.tar \
-            --out out --verbund "$VERBUND" --osm-date "$OSM_DATE" --bbox "$BBOX" \
+            --out out --verbund "$VERBUND" --osm-date "$OSM_DATE" --bbox="$BBOX" \
             --base-url "https://github.com/${GITHUB_REPOSITORY}/releases/download/routing-${VERBUND}-${OSM_DATE}"
           echo "TAG=routing-${VERBUND}-${OSM_DATE}" >> "$GITHUB_ENV"
           ls -la out
