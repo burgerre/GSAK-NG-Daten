@@ -1,6 +1,6 @@
 {
   "katalog": 1,
-  "aktualisiert": "2026-11-03T15:10:45Z",
+  "aktualisiert": "2026-11-03T15:12:31Z",
   "hinweis": "Verzeichnis der Offline-Pakete für GSAK-NG. Daten © OpenStreetMap-Mitwirkende (ODbL).",
   "routing": [
     {
@@ -24,6 +24,29 @@
       "release": "routing-ch-2026-11-02",
       "dateien": [
         "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-ch-2026-11-02/gsakng-routing-ch.zip"
+      ]
+    },
+    {
+      "land": "li",
+      "name": {
+        "de": "Liechtenstein",
+        "en": "Liechtenstein"
+      },
+      "format": 1,
+      "engine": "valhalla",
+      "engineVersion": "3.9.0",
+      "osmDate": "2026-11-02",
+      "bbox": [
+        9.3977899,
+        46.8232622,
+        9.6803433,
+        47.5258072
+      ],
+      "groesse": 6183694,
+      "sha256": "f9cab832b56dbec6b8c2a92c234a1db07b26c10318bdba22f0a42fcac2f2577c",
+      "release": "routing-li-2026-11-02",
+      "dateien": [
+        "https://github.com/burgerre/GSAK-NG-Daten/releases/download/routing-li-2026-11-02/gsakng-routing-li.zip"
       ]
     }
   ]
