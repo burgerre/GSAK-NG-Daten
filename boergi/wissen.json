@@ -1,0 +1,105 @@
+{
+  "format": 1,
+  "version": 1,
+  "created": "2026-11-04",
+  "minApp": "0.7.0",
+  "entries": [
+    {
+      "id": "navigieren-kannst-du",
+      "kind": "answer",
+      "mood": "Curious",
+      "phrases": [
+        "kannst du schon navigieren",
+        "kannst du navigieren",
+        "kann ich navigieren",
+        "kannst du mich navigieren",
+        "can you navigate",
+        "can you navigate me"
+      ],
+      "reply": {
+        "de": "Selbst navigieren kann ich nicht – aber GSAK-NG hilft dir hin: Auf dem Handy öffnest du einen Cache und wählst «Navigieren mit …» (deine Navi-App). Am Desktop berechnet «Route planen …» den Weg (Filter → «Routenkorridor …»).",
+        "en": "I can't navigate myself – but GSAK-NG gets you there: on the phone, open a cache and choose “Navigate with …” (your navigation app). On the desktop, “Plan route …” calculates the way (Filter → “Route corridor …”)."
+      },
+      "quelle": "#673"
+    },
+    {
+      "id": "navigation-einstellungen",
+      "kind": "answer",
+      "mood": "Ready",
+      "phrases": [
+        "wo sind die einstellungen für die navigation",
+        "einstellungen für die navigation",
+        "einstellungen navigation",
+        "navigationseinstellungen",
+        "wo stelle ich die navigation ein",
+        "where are the navigation settings",
+        "navigation settings"
+      ],
+      "reply": {
+        "de": "Auf dem Handy: Einstellungen → «Route» (Schlüssel für openrouteservice) und «Offline-Routing». Am Desktop gibst du den Schlüssel direkt in «Route planen …» ein (Filter → «Routenkorridor …»).",
+        "en": "On the phone: Settings → “Route” (openrouteservice key) and “Offline routing”. On the desktop, enter the key directly in “Plan route …” (Filter → “Route corridor …”)."
+      },
+      "quelle": "#674"
+    },
+    {
+      "id": "antwort-falsch",
+      "kind": "answer",
+      "mood": "Embarrassed",
+      "phrases": [
+        "deine antwort ist falsch",
+        "das ist falsch",
+        "falsche antwort",
+        "das stimmt nicht",
+        "your answer is wrong",
+        "that is wrong",
+        "that's wrong"
+      ],
+      "reply": {
+        "de": "Oh, das tut mir leid! Sag mir am besten in einem Satz, was du gemeint hast – ich versuche es gleich nochmals. Mit «Rückgängig» unter meiner letzten Antwort machst du einen Filter von mir wieder weg.",
+        "en": "Oh, I'm sorry! Tell me in one sentence what you meant and I'll try again. “Undo” below my last answer removes a filter I set."
+      },
+      "quelle": "#672"
+    },
+    {
+      "id": "animationen-zeigen",
+      "kind": "answer",
+      "mood": "Excited",
+      "phrases": [
+        "zeige mir alle deine animationen",
+        "zeig mir alle deine animationen",
+        "zeige deine animationen",
+        "zeig deine animationen",
+        "alle animationen",
+        "zeige mir deine stimmungen",
+        "show me all your animations",
+        "show your animations"
+      ],
+      "reply": {
+        "de": "Gern! In meinem Bereich findest du «Stimmungen ansehen» – dort spielt jeder Klick bzw. Tipp eine meiner Stimmungen ab und sagt, wann ich sie zeige.",
+        "en": "Sure! In my panel, open “View moods” – each click or tap plays one of my moods and tells you when I show it."
+      },
+      "quelle": "#594"
+    },
+    {
+      "id": "caches-entlang-strecke",
+      "kind": "answer",
+      "mood": "Thinking",
+      "phrases": [
+        "caches auf einer strecke",
+        "auf einer strecke liegen",
+        "caches entlang einer strecke",
+        "caches entlang der route",
+        "caches mit dem fahrrad",
+        "caches mit dem velo",
+        "mit fahrrad zu machen",
+        "caches along a route",
+        "caches by bike"
+      ],
+      "reply": {
+        "de": "Caches entlang einer Strecke findest du am Desktop mit Filter → «Routenkorridor …» (GPX-Spur oder geplante Route, mit Breite links und rechts). Ob ein Cache mit dem Velo erreichbar ist, kann ich leider nicht verlässlich sagen.",
+        "en": "To find caches along a route, use Filter → “Route corridor …” on the desktop (GPX track or planned route, with a width to each side). Whether a cache can be reached by bike, I sadly can't tell reliably."
+      },
+      "quelle": "#556"
+    }
+  ]
+}
