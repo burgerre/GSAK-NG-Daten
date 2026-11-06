@@ -1,7 +1,7 @@
 {
   "format": 1,
-  "version": 1,
-  "created": "2026-11-04",
+  "version": 2,
+  "created": "2026-11-06",
   "minApp": "0.7.0",
   "entries": [
     {
@@ -100,6 +100,32 @@
         "en": "To find caches along a route, use Filter → “Route corridor …” on the desktop (GPX track or planned route, with a width to each side). Whether a cache can be reached by bike, I sadly can't tell reliably."
       },
       "quelle": "#556"
+    },
+    {
+      "id": "geburtstag",
+      "kind": "answer",
+      "mood": "Proud",
+      "phrases": [
+        "wann ist dein geburtstag",
+        "wann hast du geburtstag",
+        "dein geburtstag",
+        "dein geburi",
+        "wie alt bist du",
+        "seit wann gibt es dich",
+        "seit wann gibt es gsak-ng",
+        "wann wurde gsak-ng gestartet",
+        "wann ist gsak-ng gestartet",
+        "wann hat gsak-ng angefangen",
+        "when is your birthday",
+        "how old are you",
+        "when did gsak-ng start",
+        "since when does gsak-ng exist"
+      ],
+      "reply": {
+        "de": "Mein Geburtstag ist der Dienstag, 20. Oktober 2026 – an diesem Abend ist GSAK-NG mit dem ersten Stand gestartet. Seither wachse ich mit jeder Version ein bisschen.",
+        "en": "My birthday is Tuesday, 20 October 2026 – that evening GSAK-NG started with its very first version. I've been growing a little with every release since."
+      },
+      "quelle": "#821"
     }
   ]
 }
