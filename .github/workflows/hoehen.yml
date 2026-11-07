@@ -1,0 +1,167 @@
+# Höhendaten je Land/Region für GSAK-NG (#213 Stufe 2): Copernicus DEM (AWS Open Data) → 1°-Kacheln SRTM-HGT (.hgt.gz) für
+# «Höhen aktualisieren» (3″, 1201²) bzw. zusätzlich Valhalla additional_data.elevation (nur 1″, 3601²). Gleiche Gebiete wie der Routing-Verbund.
+#   Von Hand («Run workflow»): Quelle und Raster wählen → Release «hoehen-<quelle>-<raster>-<stand>» (eine Datei je Kachel) → katalog.json «hoehen».
+#   Pull Request: nur Messung (GLO-90 und GLO-30, Grösse je Gebiet, Laufzeit) – kein Release, kein Katalog; Bericht in der Zusammenfassung.
+# Öffentliches Repository: Laufzeit kostenlos.
+name: hoehen
+
+on:
+  workflow_dispatch:
+    inputs:
+      quelle:
+        description: "Höhenmodell"
+        type: choice
+        options: [glo90, glo30]
+        default: glo90
+      raster:
+        description: "Raster: 3s = 1201² (≈ 90 m, klein), 1s = 3601² (für Valhalla additional_data.elevation)"
+        type: choice
+        options: ["3s", "1s"]
+        default: "3s"
+  pull_request:
+    paths:
+      - "hoehen/**"
+      - ".github/workflows/hoehen.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ${{ github.event_name == 'pull_request' && format('hoehen-messung-{0}', github.ref) || 'katalog' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  hoehen:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    env:
+      MESSUNG: ${{ github.event_name == 'pull_request' && '1' || '' }}
+      QUELLE: ${{ inputs.quelle || 'glo90' }}
+      RASTER: ${{ inputs.raster || '1s' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Platz schaffen
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+          df -h /
+
+      - name: Werkzeuge
+        run: |
+          echo "beginn=$(date +%s)" >> "$GITHUB_ENV"
+          sudo apt-get update -q
+          sudo apt-get install -y -q gdal-bin python3-shapely jq
+          gdalinfo --version
+          mkdir -p work/poly out
+          : > work/zeiten.txt
+
+      - name: Gebiete und Kacheln
+        run: |
+          python3 verbund/gebiete.py --list | while IFS=$'\t' read -r id poly; do
+            curl -fsSL -o "work/poly/$id.poly" "https://download.geofabrik.de/${poly}.poly"
+          done
+          python3 hoehen/hoehen.py kacheln work/poly work/kacheln.json
+          jq -r '.gebiete[] | "\(.id)\t\(.kacheln | length)\t\(.kacheln | join(" "))"' work/kacheln.json
+
+      - name: Kacheln bauen
+        run: |
+          if [ -n "$MESSUNG" ]; then VARIANTEN="glo90 glo30"; else VARIANTEN="$QUELLE"; fi
+          for q in $VARIANTEN; do
+            t=$(date +%s)
+            mkdir -p "work/dem-$q"
+            python3 hoehen/hoehen.py dem work/kacheln.json "$q" > "work/dem-$q.txt"
+            # Fehlende Kacheln (Meer) sind normal: 404 wird übersprungen
+            cut -f1,2 "work/dem-$q.txt" | xargs -P 8 -L 1 sh -c 'curl -fsS -o "work/dem-'"$q"'/$1" "$0" 2>/dev/null || true'
+            n=$(ls "work/dem-$q" | wc -l); dl=$(du -sm "work/dem-$q" | cut -f1)
+            printf '%s: %s DEM-Kacheln geladen (%s MB)\t%s\n' "$q" "$n" "$dl" $(( $(date +%s) - t )) >> work/zeiten.txt
+            t=$(date +%s)
+            python3 hoehen/hoehen.py bauen work/kacheln.json "$q" "work/dem-$q" "out/$q" "$RASTER" ${MESSUNG:+--roh3}
+            printf '%s: HGT bauen und packen\t%s\n' "$q" $(( $(date +%s) - t )) >> work/zeiten.txt
+            rm -rf "work/dem-$q"
+            du -sh "out/$q"; df -h /
+          done
+
+      - name: Bericht
+        run: |
+          {
+            echo "## Höhendaten #213 – Grössen je Gebiet"
+            echo
+            python3 hoehen/hoehen.py bericht work/kacheln.json out/*/
+            echo
+            echo "| Schritt | Sekunden |"
+            echo "|---|---:|"
+            sed 's/\t/ | /; s/^/| /; s/$/ |/' work/zeiten.txt
+            echo
+            echo "Gesamt: $(( $(date +%s) - beginn )) s"
+          } | tee bericht.md >> "$GITHUB_STEP_SUMMARY"
+
+      # Messung: Liefert Valhalla 3.9.0 Höhen entlang der Route (elevation_interval) mit den Verbundkacheln – mit und ohne HGT-Ordner?
+      - name: Valhalla-Probe (Liechtenstein)
+        if: env.MESSUNG
+        continue-on-error: true
+        run: |
+          mkdir -p probe/hgt/N47 && cd probe
+          for t in basis li; do
+            curl -fsSL -o "$t.zip" "$(jq -r --arg t "$t" '.verbund.teile[] | select(.id == $t) | .url' ../katalog.json)"
+            unzip -q -o "$t.zip" -x gsakng-routing.json && rm "$t.zip"
+          done
+          cp ../out/glo90/N47E009.hgt.gz hgt/N47/
+          REQ='{"locations":[{"lat":47.1410,"lon":9.5215},{"lat":47.1010,"lon":9.6090}],"costing":"pedestrian","elevation_interval":30,"directions_options":{"units":"kilometers"}}'
+          for fall in ohne mit; do
+            ELE=""; [ "$fall" = mit ] && ELE=/data/hgt
+            jq --arg e "$ELE" '.mjolnir.tile_dir = "/data/tiles" | .mjolnir.tile_extract = "" | .mjolnir.traffic_extract = "" | .additional_data.elevation = $e' valhalla.json > "cfg-$fall.json"
+            docker run --rm -v "$PWD:/data" -w /data ghcr.io/valhalla/valhalla:3.9.0 valhalla_service "/data/cfg-$fall.json" route "$REQ" > "route-$fall.json" 2> "route-$fall.log" || true
+            echo "### Route $fall HGT-Ordner" >> "$GITHUB_STEP_SUMMARY"
+            jq -c '{fehler: .error, laenge_km: .trip.summary.length, intervall: .trip.legs[0].elevation_interval, n: (.trip.legs[0].elevation | length), erste: (.trip.legs[0].elevation[0:8]), max: (.trip.legs[0].elevation | max), min: (.trip.legs[0].elevation | min)}' "route-$fall.json" | tee -a "$GITHUB_STEP_SUMMARY" || tail -5 "route-$fall.log"
+            docker run --rm -v "$PWD:/data" -w /data ghcr.io/valhalla/valhalla:3.9.0 valhalla_service "/data/cfg-$fall.json" height               '{"shape":[{"lat":47.1410,"lon":9.5215},{"lat":47.1010,"lon":9.6090}]}' 2>/dev/null | tee -a "$GITHUB_STEP_SUMMARY" || true
+            echo >> "$GITHUB_STEP_SUMMARY"
+          done
+
+      - name: Messergebnis (Bericht und Musterkacheln)
+        if: env.MESSUNG
+        uses: actions/upload-artifact@v4
+        with:
+          name: hoehen-messung
+          retention-days: 7
+          path: |
+            bericht.md
+            work/kacheln.json
+            out/glo90/N47E008.hgt.gz
+            out/glo30/N47E008.hgt.gz
+            out/glo90/N46E007.hgt.gz
+            probe/route-*.json
+
+      - name: Release
+        if: ${{ !env.MESSUNG }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          STAND=$(date -u +%F)
+          TAG="hoehen-${QUELLE}-${RASTER}-${STAND}"
+          python3 hoehen/hoehen.py katalog work/kacheln.json "$QUELLE" "out/$QUELLE" "$STAND" \
+            "https://github.com/${GITHUB_REPOSITORY}/releases/download/${TAG}" "$RASTER"
+          {
+            echo "Höhendaten für GSAK-NG: $(jq -r .quelle out/$QUELLE/hoehen.json), $(jq -r .aufloesung out/$QUELLE/hoehen.json), 1°-Kacheln im SRTM-HGT-Format (gzip)."
+            echo "Für «Höhen aktualisieren»$( [ "$RASTER" = 1s ] && echo ' und Valhalla (additional_data.elevation)'). Stand $STAND."
+            echo
+            cat bericht.md
+            echo
+            jq -r .attribution "out/$QUELLE/hoehen.json"
+          } > notes.md
+          gh release delete "$TAG" --yes --cleanup-tag 2>/dev/null || true
+          gh release create "$TAG" out/$QUELLE/*.hgt.gz "out/$QUELLE/hoehen.json" --title "Höhendaten $(jq -r .quelle out/$QUELLE/hoehen.json) ($STAND)" --notes-file notes.md
+          echo "TAG=$TAG" >> "$GITHUB_ENV"
+
+      - name: Katalog
+        if: ${{ !env.MESSUNG }}
+        run: |
+          git pull -q --rebase
+          jq --slurpfile h "out/$QUELLE/hoehen.json" --arg now "$(date -u +%FT%TZ)" --arg tag "$TAG" \
+            '.aktualisiert = $now | .hoehen = ($h[0] + {release: $tag})' katalog.json > katalog.neu
+          mv katalog.neu katalog.json
+          jq '.hoehen | del(.kacheln) | .gebiete |= map({id, groesse, kacheln: (.kacheln | length)})' katalog.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add katalog.json
+          git commit -m "Katalog: Höhendaten $QUELLE ($TAG)"
+          git push
