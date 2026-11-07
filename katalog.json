@@ -1,6 +1,6 @@
 {
   "katalog": 1,
-  "aktualisiert": "2026-11-03T19:08:41Z",
+  "aktualisiert": "2026-11-07T19:33:48Z",
   "hinweis": "Verzeichnis der Offline-Pakete für GSAK-NG. Daten © OpenStreetMap-Mitwirkende (ODbL).",
   "routing": [
     {
@@ -2036,5 +2036,1186 @@
         ]
       }
     ]
+  },
+  "hoehen": {
+    "format": 1,
+    "quelle": "Copernicus DEM GLO-90",
+    "quelleId": "glo90",
+    "aufloesung": "3″ (≈ 90 m)",
+    "raster": 1201,
+    "kachelformat": "SRTM-HGT 1201 × 1201, 1° × 1°, Int16 big-endian, Meter über Geoid (EGM2008), -32768 = keine Daten, gzip",
+    "valhalla": false,
+    "stand": "2026-11-07",
+    "attribution": "Höhendaten: Copernicus DEM GLO-90, © DLR e.V. 2010-2014 und © Airbus Defence and Space GmbH 2014-2018, bereitgestellt unter COPERNICUS durch die Europäische Union und ESA; alle Rechte vorbehalten. Verändert (HGT-Kacheln).",
+    "attributionEn": "produced using Copernicus WorldDEM-90 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved. Modified (HGT tiles).",
+    "lizenz": "Licence for the use of the Copernicus DEM (frei, auch kommerziell, mit Quellenangabe)",
+    "lizenzUrl": "https://registry.opendata.aws/copernicus-dem/",
+    "laender": [
+      {
+        "id": "ch",
+        "name": {
+          "de": "Schweiz",
+          "en": "Switzerland"
+        },
+        "regionen": []
+      },
+      {
+        "id": "li",
+        "name": {
+          "de": "Liechtenstein",
+          "en": "Liechtenstein"
+        },
+        "regionen": []
+      },
+      {
+        "id": "at",
+        "name": {
+          "de": "Österreich",
+          "en": "Austria"
+        },
+        "regionen": []
+      },
+      {
+        "id": "de",
+        "name": {
+          "de": "Deutschland",
+          "en": "Germany"
+        },
+        "regionen": [
+          "de-baden-wuerttemberg",
+          "de-bayern",
+          "de-berlin",
+          "de-brandenburg",
+          "de-bremen",
+          "de-hamburg",
+          "de-hessen",
+          "de-mecklenburg-vorpommern",
+          "de-niedersachsen",
+          "de-nordrhein-westfalen",
+          "de-rheinland-pfalz",
+          "de-saarland",
+          "de-sachsen",
+          "de-sachsen-anhalt",
+          "de-schleswig-holstein",
+          "de-thueringen"
+        ]
+      }
+    ],
+    "gebiete": [
+      {
+        "id": "ch",
+        "typ": "land",
+        "land": "ch",
+        "name": {
+          "de": "Schweiz",
+          "en": "Switzerland"
+        },
+        "bbox": [
+          5.95442,
+          45.81642,
+          10.49584,
+          47.81126
+        ],
+        "kacheln": [
+          "N45E006",
+          "N45E007",
+          "N45E008",
+          "N45E009",
+          "N46E005",
+          "N46E006",
+          "N46E007",
+          "N46E008",
+          "N46E009",
+          "N46E010",
+          "N47E006",
+          "N47E007",
+          "N47E008",
+          "N47E009",
+          "N47E010"
+        ],
+        "groesse": 25590130
+      },
+      {
+        "id": "li",
+        "typ": "land",
+        "land": "li",
+        "name": {
+          "de": "Liechtenstein",
+          "en": "Liechtenstein"
+        },
+        "bbox": [
+          9.47108,
+          47.04774,
+          9.63622,
+          47.27128
+        ],
+        "kacheln": [
+          "N47E009"
+        ],
+        "groesse": 1521806
+      },
+      {
+        "id": "at",
+        "typ": "land",
+        "land": "at",
+        "name": {
+          "de": "Österreich",
+          "en": "Austria"
+        },
+        "bbox": [
+          9.52678,
+          46.36979,
+          17.16408,
+          49.02403
+        ],
+        "kacheln": [
+          "N46E009",
+          "N46E010",
+          "N46E011",
+          "N46E012",
+          "N46E013",
+          "N46E014",
+          "N46E015",
+          "N46E016",
+          "N47E009",
+          "N47E010",
+          "N47E011",
+          "N47E012",
+          "N47E013",
+          "N47E014",
+          "N47E015",
+          "N47E016",
+          "N47E017",
+          "N48E012",
+          "N48E013",
+          "N48E014",
+          "N48E015",
+          "N48E016",
+          "N48E017",
+          "N49E014",
+          "N49E015"
+        ],
+        "groesse": 39559106
+      },
+      {
+        "id": "de-baden-wuerttemberg",
+        "typ": "region",
+        "land": "de",
+        "name": {
+          "de": "Baden-Württemberg",
+          "en": "Baden-Württemberg"
+        },
+        "bbox": [
+          7.50649,
+          47.53076,
+          10.51495,
+          49.79456
+        ],
+        "kacheln": [
+          "N47E007",
+          "N47E008",
+          "N47E009",
+          "N47E010",
+          "N48E007",
+          "N48E008",
+          "N48E009",
+          "N48E010",
+          "N49E008",
+          "N49E009",
+          "N49E010"
+        ],
+        "groesse": 15329587
+      },
+      {
+        "id": "de-bayern",
+        "typ": "region",
+        "land": "de",
+        "name": {
+          "de": "Bayern",
+          "en": "Bavaria"
+        },
+        "bbox": [
+          8.97519,
+          47.26543,
+          13.84947,
+          50.56623
+        ],
+        "kacheln": [
+          "N47E009",
+          "N47E010",
+          "N47E011",
+          "N47E012",
+          "N47E013",
+          "N48E009",
+          "N48E010",
+          "N48E011",
+          "N48E012",
+          "N48E013",
+          "N49E009",
+          "N49E010",
+          "N49E011",
+          "N49E012",
+          "N49E013",
+          "N50E008",
+          "N50E009",
+          "N50E010",
+          "N50E011",
+          "N50E012"
+        ],
+        "groesse": 28585959
+      },
+      {
+        "id": "de-berlin",
+        "typ": "region",
+        "land": "de",
+        "name": {
+          "de": "Berlin",
+          "en": "Berlin"
+        },
+        "bbox": [
+          13.08283,
+          52.33446,
+          13.76225,
+          52.6783
+        ],
+        "kacheln": [
+          "N52E013"
+        ],
+        "groesse": 833823
+      },
+      {
+        "id": "de-brandenburg",
+        "typ": "region",
+        "land": "de",
+        "name": {
+          "de": "Brandenburg",
+          "en": "Brandenburg"
+        },
+        "bbox": [
+          11.26064,
+          51.35613,
+          14.77495,
+          53.56295
+        ],
+        "kacheln": [
+          "N51E012",
+          "N51E013",
+          "N51E014",
+          "N52E011",
+          "N52E012",
+          "N52E013",
+          "N52E014",
+          "N53E011",
+          "N53E012",
+          "N53E013",
+          "N53E014"
+        ],
+        "groesse": 8900151
+      },
+      {
+        "id": "de-bremen",
+        "typ": "region",
+        "land": "de",
+        "name": {
+          "de": "Bremen",
+          "en": "Bremen"
+        },
+        "bbox": [
+          8.48096,
+          53.01034,
+          8.99127,
+          53.61063
+        ],
+        "kacheln": [
+          "N53E008",
+          "N53E009"
+        ],
+        "groesse": 1101245
+      },
+      {
+        "id": "de-hamburg",
+        "typ": "region",
+        "land": "de",
+        "name": {
+          "de": "Hamburg",
+          "en": "Hamburg"
+        },
+        "bbox": [
+          7.96783,
+          53.39183,
+          10.33196,
+          54.06261
+        ],
+        "kacheln": [
+          "N53E008",
+          "N53E009",
+          "N53E010",
+          "N54E007",
+          "N54E008"
+        ],
+        "groesse": 2064728
+      },
+      {
+        "id": "de-hessen",
+        "typ": "region",
+        "land": "de",
+        "name": {
+          "de": "Hessen",
+          "en": "Hesse"
+        },
+        "bbox": [
+          7.76802,
+          49.39321,
+          10.24595,
+          51.65916
+        ],
+        "kacheln": [
+          "N49E007",
+          "N49E008",
+          "N49E009",
+          "N50E007",
+          "N50E008",
+          "N50E009",
+          "N50E010",
+          "N51E008",
+          "N51E009",
+          "N51E010"
+        ],
+        "groesse": 13705447
+      },
+      {
+        "id": "de-mecklenburg-vorpommern",
+        "typ": "region",
+        "land": "de",
+        "name": {
+          "de": "Mecklenburg-Vorpommern",
+          "en": "Mecklenburg-Western Pomerania"
+        },
+        "bbox": [
+          10.58807,
+          53.10619,
+          14.42292,
+          54.9837
+        ],
+        "kacheln": [
+          "N53E010",
+          "N53E011",
+          "N53E012",
+          "N53E013",
+          "N53E014",
+          "N54E010",
+          "N54E011",
+          "N54E012",
+          "N54E013",
+          "N54E014"
+        ],
+        "groesse": 5216375
+      },
+      {
+        "id": "de-niedersachsen",
+        "typ": "region",
+        "land": "de",
+        "name": {
+          "de": "Niedersachsen",
+          "en": "Lower Saxony"
+        },
+        "bbox": [
+          6.29534,
+          51.29348,
+          11.60731,
+          54.23955
+        ],
+        "kacheln": [
+          "N51E009",
+          "N51E010",
+          "N52E006",
+          "N52E007",
+          "N52E008",
+          "N52E009",
+          "N52E010",
+          "N52E011",
+          "N53E006",
+          "N53E007",
+          "N53E008",
+          "N53E009",
+          "N53E010",
+          "N53E011",
+          "N54E007",
+          "N54E008"
+        ],
+        "groesse": 10636261
+      },
+      {
+        "id": "de-nordrhein-westfalen",
+        "typ": "region",
+        "land": "de",
+        "name": {
+          "de": "Nordrhein-Westfalen",
+          "en": "North Rhine-Westphalia"
+        },
+        "bbox": [
+          5.86442,
+          50.32088,
+          9.46831,
+          52.53345
+        ],
+        "kacheln": [
+          "N50E005",
+          "N50E006",
+          "N50E007",
+          "N50E008",
+          "N51E005",
+          "N51E006",
+          "N51E007",
+          "N51E008",
+          "N51E009",
+          "N52E006",
+          "N52E007",
+          "N52E008",
+          "N52E009"
+        ],
+        "groesse": 13535323
+      },
+      {
+        "id": "de-rheinland-pfalz",
+        "typ": "region",
+        "land": "de",
+        "name": {
+          "de": "Rheinland-Pfalz",
+          "en": "Rhineland-Palatinate"
+        },
+        "bbox": [
+          6.10913,
+          48.96377,
+          8.51123,
+          50.94404
+        ],
+        "kacheln": [
+          "N48E008",
+          "N49E006",
+          "N49E007",
+          "N49E008",
+          "N50E006",
+          "N50E007",
+          "N50E008"
+        ],
+        "groesse": 9662971
+      },
+      {
+        "id": "de-saarland",
+        "typ": "region",
+        "land": "de",
+        "name": {
+          "de": "Saarland",
+          "en": "Saarland"
+        },
+        "bbox": [
+          6.35447,
+          49.10807,
+          7.40629,
+          49.64146
+        ],
+        "kacheln": [
+          "N49E006",
+          "N49E007"
+        ],
+        "groesse": 2855551
+      },
+      {
+        "id": "de-sachsen",
+        "typ": "region",
+        "land": "de",
+        "name": {
+          "de": "Sachsen",
+          "en": "Saxony"
+        },
+        "bbox": [
+          11.86685,
+          50.16658,
+          15.05078,
+          51.68735
+        ],
+        "kacheln": [
+          "N50E011",
+          "N50E012",
+          "N50E013",
+          "N50E014",
+          "N51E012",
+          "N51E013",
+          "N51E014",
+          "N51E015"
+        ],
+        "groesse": 8862167
+      },
+      {
+        "id": "de-sachsen-anhalt",
+        "typ": "region",
+        "land": "de",
+        "name": {
+          "de": "Sachsen-Anhalt",
+          "en": "Saxony-Anhalt"
+        },
+        "bbox": [
+          10.54725,
+          50.92887,
+          13.21268,
+          53.0566
+        ],
+        "kacheln": [
+          "N50E011",
+          "N50E012",
+          "N51E010",
+          "N51E011",
+          "N51E012",
+          "N51E013",
+          "N52E010",
+          "N52E011",
+          "N52E012",
+          "N53E011"
+        ],
+        "groesse": 9782804
+      },
+      {
+        "id": "de-schleswig-holstein",
+        "typ": "region",
+        "land": "de",
+        "name": {
+          "de": "Schleswig-Holstein",
+          "en": "Schleswig-Holstein"
+        },
+        "bbox": [
+          7.46458,
+          53.3569,
+          11.79931,
+          55.14634
+        ],
+        "kacheln": [
+          "N53E007",
+          "N53E008",
+          "N53E009",
+          "N53E010",
+          "N53E011",
+          "N54E007",
+          "N54E008",
+          "N54E009",
+          "N54E010",
+          "N54E011",
+          "N55E008"
+        ],
+        "groesse": 4776793
+      },
+      {
+        "id": "de-thueringen",
+        "typ": "region",
+        "land": "de",
+        "name": {
+          "de": "Thüringen",
+          "en": "Thuringia"
+        },
+        "bbox": [
+          9.86318,
+          50.19971,
+          12.66106,
+          51.65237
+        ],
+        "kacheln": [
+          "N50E009",
+          "N50E010",
+          "N50E011",
+          "N50E012",
+          "N51E009",
+          "N51E010",
+          "N51E011",
+          "N51E012"
+        ],
+        "groesse": 10044231
+      }
+    ],
+    "kacheln": [
+      {
+        "name": "N45E006",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N45E006.hgt.gz",
+        "groesse": 2134574,
+        "sha256": "026a96f3659b1e100e43d36dcb2942e42e56bc9e81070e86d6c7389de334f1ce"
+      },
+      {
+        "name": "N45E007",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N45E007.hgt.gz",
+        "groesse": 1979955,
+        "sha256": "d6c28898db061e09b04bd66a8300f68d944cfa40c9bc3a4e9f429a4b4ca519c7"
+      },
+      {
+        "name": "N45E008",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N45E008.hgt.gz",
+        "groesse": 1185565,
+        "sha256": "b80be775348e998128d67be41dd10bcdcc94cbe5e4e16838e2f867f52b60df95"
+      },
+      {
+        "name": "N45E009",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N45E009.hgt.gz",
+        "groesse": 1023393,
+        "sha256": "85e6000aa28064a74076f5a4d683aab7e53ac168d46cffc707565bea1006c72d"
+      },
+      {
+        "name": "N46E005",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N46E005.hgt.gz",
+        "groesse": 1461235,
+        "sha256": "2100589d405cf2c7689366a0407d40b1f5b45cb1a727f36cdbc78cb89fa942fd"
+      },
+      {
+        "name": "N46E006",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N46E006.hgt.gz",
+        "groesse": 1611266,
+        "sha256": "11f5a5cba8e6a8828466ae0e6778d68bf531b00f699d311f23d735bb521014ff"
+      },
+      {
+        "name": "N46E007",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N46E007.hgt.gz",
+        "groesse": 1988138,
+        "sha256": "c754d1f13c8a8fce824e94aa90e24dafdcd978a6d77243c5d44c19edbc79e3e2"
+      },
+      {
+        "name": "N46E008",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N46E008.hgt.gz",
+        "groesse": 2107427,
+        "sha256": "df142dfc63cb74cf9ca6aa75a3749934e92a10a05535c9b6642c0462f326f15c"
+      },
+      {
+        "name": "N46E009",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N46E009.hgt.gz",
+        "groesse": 2101897,
+        "sha256": "c8642a3960f390fd8f5f497bbbdfbe0b90a1e10389d9184a198b63690038a981"
+      },
+      {
+        "name": "N46E010",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N46E010.hgt.gz",
+        "groesse": 2138043,
+        "sha256": "538dc280e06c5db4b3994069063b8252554320445708f91cf501d2c80df6e912"
+      },
+      {
+        "name": "N46E011",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N46E011.hgt.gz",
+        "groesse": 2093218,
+        "sha256": "2924cc65febbc7db26e00a113b93cdff035a8d1647f9ed31b443d2d468c90ca3"
+      },
+      {
+        "name": "N46E012",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N46E012.hgt.gz",
+        "groesse": 1997354,
+        "sha256": "e9516b1954a789b3709589c0ecfdc4e878b84d93b075af05229a03a091da3bf7"
+      },
+      {
+        "name": "N46E013",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N46E013.hgt.gz",
+        "groesse": 1920651,
+        "sha256": "7ae2af3e03f1b6c29883dd73c0c60a55627f723869e4bb5d9520884e81c5516f"
+      },
+      {
+        "name": "N46E014",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N46E014.hgt.gz",
+        "groesse": 1800093,
+        "sha256": "2784e357bdbd66b4ff857c3d061e00b11998a008cdfec2cf1c007be1e6c5a71d"
+      },
+      {
+        "name": "N46E015",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N46E015.hgt.gz",
+        "groesse": 1626038,
+        "sha256": "11a9ee415cb2166c5ff1c6200a7528fdf0fbf2bc2e8e22b35054b66366bc10ef"
+      },
+      {
+        "name": "N46E016",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N46E016.hgt.gz",
+        "groesse": 1160841,
+        "sha256": "7324d2b93512e6ee05fbf9d3e055a1b350de6e10aec9cdfff573f2a6a7461ef7"
+      },
+      {
+        "name": "N47E006",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N47E006.hgt.gz",
+        "groesse": 1548606,
+        "sha256": "a42c6a997f22c65feade518aada3676881946fcd23c9fe7d0abadee2b28f25c0"
+      },
+      {
+        "name": "N47E007",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N47E007.hgt.gz",
+        "groesse": 1496763,
+        "sha256": "1de43e41fb915ac5139613b3edc3ffdf9aa48dd1ec1ff649a0458eaa34d9f25e"
+      },
+      {
+        "name": "N47E008",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N47E008.hgt.gz",
+        "groesse": 1544022,
+        "sha256": "c3c70681b70c3e3b0acf113f32535f31a1cf1d96d0a3a580c00822ef13304b61"
+      },
+      {
+        "name": "N47E009",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N47E009.hgt.gz",
+        "groesse": 1521806,
+        "sha256": "8cc1b0ccb84503a28b2838698e9a640a1bff9cc84c6fbe03d6e81cc19f10efdb"
+      },
+      {
+        "name": "N47E010",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N47E010.hgt.gz",
+        "groesse": 1747440,
+        "sha256": "39dd06d38e6f80ace511d45e75d345ce3335d9f1b7000d8a4e23401a71ca4205"
+      },
+      {
+        "name": "N47E011",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N47E011.hgt.gz",
+        "groesse": 1798767,
+        "sha256": "ec33550acc0422a362747bdccf514638c6ea48c896c20c6b75ab3c2147fdb494"
+      },
+      {
+        "name": "N47E012",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N47E012.hgt.gz",
+        "groesse": 1845469,
+        "sha256": "624d143386f40faaa7665ca60644caa0099e571f9921e76e83d608a7d4f1045f"
+      },
+      {
+        "name": "N47E013",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N47E013.hgt.gz",
+        "groesse": 1926114,
+        "sha256": "c03379670ec3e8c1c425abdb9d39ae2721e1b65695e009afccc32b945c175fe1"
+      },
+      {
+        "name": "N47E014",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N47E014.hgt.gz",
+        "groesse": 1956667,
+        "sha256": "04d9e9c097825090048b104e15641e3e7a3e41f3c8636194fdf8349c7a778949"
+      },
+      {
+        "name": "N47E015",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N47E015.hgt.gz",
+        "groesse": 1868574,
+        "sha256": "8427be112e0097c919538143434f2d08f449dd61260003d83d3a184730c054c6"
+      },
+      {
+        "name": "N47E016",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N47E016.hgt.gz",
+        "groesse": 1175436,
+        "sha256": "29b2e61895bf48b0f10ecf21520135cf2ebe02d27dd20bbcb3cfad2bce6400df"
+      },
+      {
+        "name": "N47E017",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N47E017.hgt.gz",
+        "groesse": 824802,
+        "sha256": "9df30998b8eb69c123bf6dd32609b74a6d3797193962b331c9b91fa01fbbd926"
+      },
+      {
+        "name": "N48E007",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N48E007.hgt.gz",
+        "groesse": 1332472,
+        "sha256": "e9d8c942fc500950e462bd9ba931453c83756b484ee761bcafbc1dc7d3ff36a5"
+      },
+      {
+        "name": "N48E008",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N48E008.hgt.gz",
+        "groesse": 1548817,
+        "sha256": "874aecbb3f2ee043f8680e2ef2774b7a3b2002a17f1874265bc1885936c1cc7f"
+      },
+      {
+        "name": "N48E009",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N48E009.hgt.gz",
+        "groesse": 1371301,
+        "sha256": "4c0364a8e60c74a28e1596e3e96b915da5473760744b29b705bc60b6a91be298"
+      },
+      {
+        "name": "N48E010",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N48E010.hgt.gz",
+        "groesse": 1072884,
+        "sha256": "9325ec4f9e9ea8074e19a77fcf5037be44cc73715ca51104c9db53582a7b3c8f"
+      },
+      {
+        "name": "N48E011",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N48E011.hgt.gz",
+        "groesse": 1041088,
+        "sha256": "cb94b149e4462dff79f8b1ebb97ceb5f2604f0e81ed428044fbe323cd52fe56d"
+      },
+      {
+        "name": "N48E012",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N48E012.hgt.gz",
+        "groesse": 1127364,
+        "sha256": "67a9b17ec3cae09f12ef661cf519dc0f6b7faacad4f7cf328d2db6c5b689a283"
+      },
+      {
+        "name": "N48E013",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N48E013.hgt.gz",
+        "groesse": 1449009,
+        "sha256": "a45b1719c375841b7d2b802110ce80212b118839341f8bb99d1f3970287c8ad0"
+      },
+      {
+        "name": "N48E014",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N48E014.hgt.gz",
+        "groesse": 1419103,
+        "sha256": "a96b0ed79bc37f7e2cef8e6eafcae9f5462644fd05134459e70562cc44b2800a"
+      },
+      {
+        "name": "N48E015",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N48E015.hgt.gz",
+        "groesse": 1379540,
+        "sha256": "3d3cfd52350e9a7f683aee9b658a9c2e0215095c2e16a2b2b37afbf419714087"
+      },
+      {
+        "name": "N48E016",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N48E016.hgt.gz",
+        "groesse": 1036436,
+        "sha256": "a84dd276e8ddbc7d89de0d3e6bc3352f6a25df613f737f5048cdb17ea6dd6b3b"
+      },
+      {
+        "name": "N48E017",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N48E017.hgt.gz",
+        "groesse": 1094440,
+        "sha256": "829a7ed3b4612a7101927ca9520dc6ef0a5ba1b1e019b9b87c0fdf789b30e51f"
+      },
+      {
+        "name": "N49E006",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N49E006.hgt.gz",
+        "groesse": 1364382,
+        "sha256": "80a69e49e8e5283f96b5f21708466b6ce7a4e61fcbe95d6322aa198b679ddccd"
+      },
+      {
+        "name": "N49E007",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N49E007.hgt.gz",
+        "groesse": 1491169,
+        "sha256": "af876a22b6aa52844bd1408a70a9432b34973bf6c6208e520dc3d910c1b3922f"
+      },
+      {
+        "name": "N49E008",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N49E008.hgt.gz",
+        "groesse": 1157649,
+        "sha256": "f76df6b41cc7f035dae82e1b80957684b1753c7a6c5f1485fb9a56256f63c732"
+      },
+      {
+        "name": "N49E009",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N49E009.hgt.gz",
+        "groesse": 1409027,
+        "sha256": "8cc724cc01bd1f6e7d3cde57921d6c9f698c627bdad99046e801903d6bc12891"
+      },
+      {
+        "name": "N49E010",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N49E010.hgt.gz",
+        "groesse": 1127406,
+        "sha256": "9bd112186ba161077c80109e0d73889b931a962751a4ddaa31d998663eec068e"
+      },
+      {
+        "name": "N49E011",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N49E011.hgt.gz",
+        "groesse": 1343130,
+        "sha256": "2afa21dc5bdd519bb93f68294d063e8d65f301ca0fde9dcf26c1dbaedf050194"
+      },
+      {
+        "name": "N49E012",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N49E012.hgt.gz",
+        "groesse": 1403887,
+        "sha256": "1e6f2900bdfe1477ae77eb493f9b315952a6df65e52f4eb46caa5bd23937c83d"
+      },
+      {
+        "name": "N49E013",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N49E013.hgt.gz",
+        "groesse": 1412774,
+        "sha256": "0d3749b7de2ac355edd07da85ec53b111bdf4d36e5ca2252da63656552c6e713"
+      },
+      {
+        "name": "N49E014",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N49E014.hgt.gz",
+        "groesse": 1279018,
+        "sha256": "b82109be573da7a223d41d2e29d4d53f6ae8587055b1587dc1b3ee783bfbcbb6"
+      },
+      {
+        "name": "N49E015",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N49E015.hgt.gz",
+        "groesse": 1270986,
+        "sha256": "f071bfe8e9a61634e752c19399f816d7d65b8d69d9e77bb8d4373d71c42dd5e7"
+      },
+      {
+        "name": "N50E005",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N50E005.hgt.gz",
+        "groesse": 1230239,
+        "sha256": "ae40eb2339fc93a192a5922e5fa2de3027a0f7e0a75b430b00be57a67f0a6529"
+      },
+      {
+        "name": "N50E006",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N50E006.hgt.gz",
+        "groesse": 1264089,
+        "sha256": "5e96bc11a3d5b67833f1960963832ca9a0357225bfd0cf708c78736ef3548348"
+      },
+      {
+        "name": "N50E007",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N50E007.hgt.gz",
+        "groesse": 1474456,
+        "sha256": "f58253b0414eace90e3b1d6aac4eb71b89d560f61c2cd5f7cdccedfdfb503a67"
+      },
+      {
+        "name": "N50E008",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N50E008.hgt.gz",
+        "groesse": 1362409,
+        "sha256": "6173336d17c25ff48ad71e410128f9406223960153ab6fd672bb5d2346403fb8"
+      },
+      {
+        "name": "N50E009",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N50E009.hgt.gz",
+        "groesse": 1463717,
+        "sha256": "bbf7d39ee1b572ca3e2cb5c4837a99fbc316bc4de46dbe9f0190056fdbb9d7f4"
+      },
+      {
+        "name": "N50E010",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N50E010.hgt.gz",
+        "groesse": 1382200,
+        "sha256": "6afd7d38067ed1e97f39795f02ddfee79503f9b79c0f8d6d62c7058935c25ae8"
+      },
+      {
+        "name": "N50E011",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N50E011.hgt.gz",
+        "groesse": 1422888,
+        "sha256": "7fd44ec2c72075ff2f29cecad4e92e465f742f492fb454fe87c9212c7493d24e"
+      },
+      {
+        "name": "N50E012",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N50E012.hgt.gz",
+        "groesse": 1357279,
+        "sha256": "331114cd872f9799e42b65fa7f8fedd8c5e6965dcf7ca2d7e4b3675ac74d8c16"
+      },
+      {
+        "name": "N50E013",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N50E013.hgt.gz",
+        "groesse": 1378611,
+        "sha256": "1b10c44a73a132fed007150ea3a7d09f78d6991ab6b0cf9fb6fda726b958622e"
+      },
+      {
+        "name": "N50E014",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N50E014.hgt.gz",
+        "groesse": 1217099,
+        "sha256": "0f434bcf4e31634547cd9c6f71418b53804a7474687c5d3368c583a6159ba40e"
+      },
+      {
+        "name": "N51E005",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N51E005.hgt.gz",
+        "groesse": 609351,
+        "sha256": "df99fb174c58317be91b632e480dd248b29b92837c3c43f2bde5845ee1d9463e"
+      },
+      {
+        "name": "N51E006",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N51E006.hgt.gz",
+        "groesse": 744496,
+        "sha256": "77886b1e6f00f75ac7eacbb193f466a21aaf76d3152f0f1d8f46fdca1a84e87a"
+      },
+      {
+        "name": "N51E007",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N51E007.hgt.gz",
+        "groesse": 1156011,
+        "sha256": "6ead89473772e6d94ebc7cbc61efeb0aa31319a7956840af8b36cffea8b7fec2"
+      },
+      {
+        "name": "N51E008",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N51E008.hgt.gz",
+        "groesse": 1274550,
+        "sha256": "50b9e7764be5c8d4a4adca02cb50992c1e605d199bdf5693d6eee2a686c30313"
+      },
+      {
+        "name": "N51E009",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N51E009.hgt.gz",
+        "groesse": 1387742,
+        "sha256": "14cfab57cd33158e876ee8a1a90b0677a3256d77bb83acfb09d6666d12310584"
+      },
+      {
+        "name": "N51E010",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N51E010.hgt.gz",
+        "groesse": 1302528,
+        "sha256": "914a127f5e9134fe57df76c9274162ce3d12cfd7e614c4883292f0f984c85b57"
+      },
+      {
+        "name": "N51E011",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N51E011.hgt.gz",
+        "groesse": 966494,
+        "sha256": "df6d2c21d7e100a2b1e6dba262d6c0a5b2292efe38b7201e5f69fdbcf7fd457d"
+      },
+      {
+        "name": "N51E012",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N51E012.hgt.gz",
+        "groesse": 761383,
+        "sha256": "d09579d44bd5c5e65a99f9d98d8a8734275d733b7c523dfe312ff51c1465e0c7"
+      },
+      {
+        "name": "N51E013",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N51E013.hgt.gz",
+        "groesse": 870837,
+        "sha256": "33f0f13f1b01be70bfc8d417e09acaf86e9da518c1c7b1520736e4bbb3940115"
+      },
+      {
+        "name": "N51E014",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N51E014.hgt.gz",
+        "groesse": 924632,
+        "sha256": "4b6d44e7070bd3b125aeb8a8ec9ea8bfe72be642943d044d8969f3af7a92c0ac"
+      },
+      {
+        "name": "N51E015",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N51E015.hgt.gz",
+        "groesse": 929438,
+        "sha256": "92639fac803bd4fcc2b2c9e053a46e00d2360ee8fa7ceaecfda177f36c638253"
+      },
+      {
+        "name": "N52E006",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N52E006.hgt.gz",
+        "groesse": 610253,
+        "sha256": "c1db17ae564af61b2dd813d9213e6711df934b95c958ff96d149bb6e736d272b"
+      },
+      {
+        "name": "N52E007",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N52E007.hgt.gz",
+        "groesse": 734545,
+        "sha256": "cce477c9713a06f51a93d1d793d57c6ffe456ec39b7024d2a49ca383f77c6636"
+      },
+      {
+        "name": "N52E008",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N52E008.hgt.gz",
+        "groesse": 801103,
+        "sha256": "e48a27f35830365cceaf835544ade115972f1ac447c16c6e30c561a325ffeed3"
+      },
+      {
+        "name": "N52E009",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N52E009.hgt.gz",
+        "groesse": 886079,
+        "sha256": "645c4cc875fdbd9806cdc53d3d4b416983ef66f26f6d4a47f20f5904c8d689f0"
+      },
+      {
+        "name": "N52E010",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N52E010.hgt.gz",
+        "groesse": 847016,
+        "sha256": "63075d6f0721e35a05d7fa1ec4ed6392b9f277f9bc0f1b3509cea86da3f1ae2b"
+      },
+      {
+        "name": "N52E011",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N52E011.hgt.gz",
+        "groesse": 738504,
+        "sha256": "fb438f4c7753ad4dd4d5fc0db1517e311a6fdcb35437d7801356b574a47f9215"
+      },
+      {
+        "name": "N52E012",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N52E012.hgt.gz",
+        "groesse": 710255,
+        "sha256": "3a0a8777b872cd32052bac66d818b903450e589c19fcaecbb6547ebaf48f2a57"
+      },
+      {
+        "name": "N52E013",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N52E013.hgt.gz",
+        "groesse": 833823,
+        "sha256": "23b5aa8c3c5890e849efb6b9d886b35700104fdc93d96696e1c65fc50bc02df7"
+      },
+      {
+        "name": "N52E014",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N52E014.hgt.gz",
+        "groesse": 865719,
+        "sha256": "870d010aba6396230f3b25460ef50d8d3c75ebc6709e09f07ac595e932b9f208"
+      },
+      {
+        "name": "N53E006",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N53E006.hgt.gz",
+        "groesse": 172471,
+        "sha256": "8a5f6ac90d5cd54110cae7fe9eb45d853a137d8152d6476bad35d1fc537cfe6b"
+      },
+      {
+        "name": "N53E007",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N53E007.hgt.gz",
+        "groesse": 285672,
+        "sha256": "8c575fcc76bcd24f03e008b4640b6436782a194a1b88cbc799a1e67bfe7cd656"
+      },
+      {
+        "name": "N53E008",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N53E008.hgt.gz",
+        "groesse": 406346,
+        "sha256": "2304387c817ac47523205482a72851fdfb5653e8e4b0e01ff3710c26262dfa31"
+      },
+      {
+        "name": "N53E009",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N53E009.hgt.gz",
+        "groesse": 694899,
+        "sha256": "e72721009934e2ffd415ff2b7152fefb20c13aaae2cb6adca07877abc4f723b1"
+      },
+      {
+        "name": "N53E010",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N53E010.hgt.gz",
+        "groesse": 850484,
+        "sha256": "63d04bf3db2d042a2c31f0bd8cdac90d452452ae65ec3a5c83a851132a6be14a"
+      },
+      {
+        "name": "N53E011",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N53E011.hgt.gz",
+        "groesse": 805620,
+        "sha256": "f50337210548e0a2d36f11035521e568bbfb24875ef4949dfe84d27b845bc489"
+      },
+      {
+        "name": "N53E012",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N53E012.hgt.gz",
+        "groesse": 828494,
+        "sha256": "0e8c5c09132e20b7357649bf82eec290a8ec8b5896f1cd7a9e9c70090f546765"
+      },
+      {
+        "name": "N53E013",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N53E013.hgt.gz",
+        "groesse": 827140,
+        "sha256": "9f95c4b056fb7716243ce87453fc0008b5f76870277db739b06018bf7303d6ee"
+      },
+      {
+        "name": "N53E014",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N53E014.hgt.gz",
+        "groesse": 733744,
+        "sha256": "9c9993724568cf83afac98a462b9604f78258da3ef0ae5c2478b61198c88a4b0"
+      },
+      {
+        "name": "N54E007",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N54E007.hgt.gz",
+        "groesse": 3257,
+        "sha256": "7fd510660f9221cab8414f23ae035c454986bebbc518725d94806fc969c9d017"
+      },
+      {
+        "name": "N54E008",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N54E008.hgt.gz",
+        "groesse": 109742,
+        "sha256": "ccb8a7fd9c990c4c57fd11f43eb6671d02ad4976ddc66007dded28d8b72779b8"
+      },
+      {
+        "name": "N54E009",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N54E009.hgt.gz",
+        "groesse": 635590,
+        "sha256": "1daf84067a52a8005573544d076596e47d31e00e813e680902609fb223a55660"
+      },
+      {
+        "name": "N54E010",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N54E010.hgt.gz",
+        "groesse": 381793,
+        "sha256": "6af50933b6fcec74fa5a72036d187696ac5255ee8c3f2e9de6e50c812267c7d3"
+      },
+      {
+        "name": "N54E011",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N54E011.hgt.gz",
+        "groesse": 232609,
+        "sha256": "bd7fe6ae90114cbf01a0ed6af4a89eea9f99e2315b53c991ed505d1cd626ad93"
+      },
+      {
+        "name": "N54E012",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N54E012.hgt.gz",
+        "groesse": 290694,
+        "sha256": "e9bc15ad88534405a604da3f280ea7f6295e2b93a9fe143015a8edc428e891be"
+      },
+      {
+        "name": "N54E013",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N54E013.hgt.gz",
+        "groesse": 248509,
+        "sha256": "50aaec62c15588756d55505a05ba99c1aaec2d2540ea6052158ca2991dafb186"
+      },
+      {
+        "name": "N54E014",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N54E014.hgt.gz",
+        "groesse": 17288,
+        "sha256": "06c85c9af5f18bdec0d1c3d98fbc71b02482de075105a3f20437f54641bc5c5f"
+      },
+      {
+        "name": "N55E008",
+        "url": "https://github.com/burgerre/GSAK-NG-Daten/releases/download/hoehen-glo90-3s-2026-11-07/N55E008.hgt.gz",
+        "groesse": 370781,
+        "sha256": "4af97a42d4a43d03fcb035de461e2f7b060f8e7ba665a3689b75bbddefeeb4a8"
+      }
+    ],
+    "groesse": 114118915,
+    "release": "hoehen-glo90-3s-2026-11-07"
   }
 }
