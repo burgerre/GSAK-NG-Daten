@@ -1,14 +1,15 @@
 """Höhendaten je Land/Region für GSAK-NG (#213 Stufe 2): Copernicus DEM → 1°-Kacheln im SRTM-HGT-Format (gepackt, .hgt.gz).
 
-Valhalla 3.9.0 («skadi», valhalla-mobile 0.6.4) liest nur Kacheln mit 3601 × 3601 Werten (1″, Ränder doppelt wie SRTM). GLO-90 (3″) wird
-darum auf das 1″-Raster bilinear interpoliert; GLO-30 (1″) wird nur vom Flächen- auf das Punktraster verschoben. Die App liest dieselben
-Kacheln für «Höhen aktualisieren» (Desktop und Handy).
+Zwei Raster: «3s» = SRTM 3″ (1201 × 1201, ≈ 90 m, klein) für «Höhen aktualisieren» (Desktop und Handy, eigener HGT-Leser der App) und
+«1s» = SRTM 1″ (3601 × 3601), das einzige Raster, das Valhalla 3.9.0 («skadi», valhalla-mobile 0.6.4) als additional_data.elevation liest.
+Die Routenhöhen von Valhalla stammen aus den Graphkacheln (beim Bau mit Höhen erzeugt) und brauchen keine HGT-Kacheln auf dem Gerät
+(Valhalla-Probe im Messlauf). Rasterpunkte liegen wie bei SRTM auf ganzen Bogensekunden, die Kachelränder sind doppelt.
 
   hoehen.py kacheln  <poly-dir> <out.json>                     Gebiete (wie Routing-Verbund) → berührte 1°-Kacheln, Liste der DEM-Kacheln
   hoehen.py dem      <kacheln.json> <glo90|glo30>              druckt «url<TAB>datei» aller nötigen Copernicus-Kacheln (inkl. Nachbarn)
-  hoehen.py bauen    <kacheln.json> <glo90|glo30> <dem-dir> <out-dir> [--roh3]
-                                                               je 1°-Kachel N47E008.hgt.gz (3601²); --roh3 zusätzlich 1201² zum Vergleich
-  hoehen.py katalog  <kacheln.json> <glo90|glo30> <out-dir> <stand> <base-url>
+  hoehen.py bauen    <kacheln.json> <glo90|glo30> <dem-dir> <out-dir> <3s|1s> [--roh3]
+                                                               je 1°-Kachel N47E008.hgt.gz; --roh3 (bei 1s) zusätzlich 3s unter 3s/ zum Vergleich
+  hoehen.py katalog  <kacheln.json> <glo90|glo30> <out-dir> <stand> <base-url> <3s|1s>
                                                                schreibt <out-dir>/hoehen.json (Katalogabschnitt «hoehen»)
   hoehen.py bericht  <kacheln.json> <mess-dir>...              Grössenbericht (Markdown) je Gebiet und Variante
 """
@@ -26,7 +27,8 @@ from gebiete import gebiete, laender  # noqa: E402
 
 FORMAT = 1
 DIM = 3601          # Valhalla skadi: HGT_DIM 3601 (1″)
-DIM3 = 1201         # SRTM 3″ (nur Messung)
+DIM3 = 1201         # SRTM 3″
+RASTER = {"1s": DIM, "3s": DIM3}
 PUFFER = 0.01       # Grad um das Gebietspolygon
 
 QUELLEN = {
@@ -50,6 +52,12 @@ QUELLEN = {
         "attributionEn": "produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 "
                          "provided under COPERNICUS by the European Union and ESA; all rights reserved. Modified (HGT tiles).",
     },
+}
+AUFLOESUNG = {
+    ("glo90", "3s"): "3″ (≈ 90 m)",
+    ("glo90", "1s"): "3″ (≈ 90 m), auf 1″-Raster interpoliert",
+    ("glo30", "3s"): "3″ (≈ 90 m), aus 1″ gemittelt",
+    ("glo30", "1s"): "1″ (≈ 30 m)",
 }
 LIZENZ = "Licence for the use of the Copernicus DEM (frei, auch kommerziell, mit Quellenangabe)"
 LIZENZ_URL = "https://registry.opendata.aws/copernicus-dem/"
@@ -117,7 +125,7 @@ def run(*args):
     subprocess.run(args, check=True)
 
 
-def bauen(kacheln_json, quelle, dem_dir, out_dir, roh3=False):
+def bauen(kacheln_json, quelle, dem_dir, out_dir, raster="1s", roh3=False):
     with open(kacheln_json, encoding="utf-8") as f:
         k = json.load(f)
     os.makedirs(out_dir, exist_ok=True)
@@ -133,13 +141,16 @@ def bauen(kacheln_json, quelle, dem_dir, out_dir, roh3=False):
         if dem_name(quelle, lat, lon) not in vorhanden:
             leer.append(name)       # Meer: Copernicus hat keine Kachel
             continue
-        for dim, suffix in ((DIM, ""), (DIM3, ".3s")) if roh3 else ((DIM, ""),):
+        main = RASTER[raster]
+        for dim, suffix in ((main, ""), (DIM3, ".3s")) if roh3 and main == DIM else ((main, ""),):
+            # feineres Quellraster auf 3″: mitteln statt einzelne Punkte nehmen
+            methode = "average" if dim == DIM3 and quelle == "glo30" else "bilinear"
             h = 0.5 / (dim - 1)     # halbe Zelle: Mittelpunkte der Randzellen liegen genau auf den Kachelgrenzen
             tmp = os.path.join(out_dir, f"{name}{suffix}.tif")
             hgt = os.path.join(out_dir, f"{name}.hgt") if not suffix else os.path.join(out_dir, "3s", f"{name}.hgt")
             os.makedirs(os.path.dirname(hgt), exist_ok=True)
             run("gdalwarp", "-q", "-overwrite", "-te", str(lon - h), str(lat - h), str(lon + 1 + h), str(lat + 1 + h),
-                "-ts", str(dim), str(dim), "-r", "bilinear", "-ot", "Int16", "-dstnodata", "-32768", "-wo", "NUM_THREADS=ALL_CPUS", vrt, tmp)
+                "-ts", str(dim), str(dim), "-r", methode, "-ot", "Int16", "-dstnodata", "-32768", "-wo", "NUM_THREADS=ALL_CPUS", vrt, tmp)
             run("gdal_translate", "-q", "-of", "SRTMHGT", tmp, hgt)
             os.remove(tmp)
             for aux in glob.glob(hgt + ".aux.xml"):
@@ -163,7 +174,7 @@ def sha256(path):
     return h.hexdigest()
 
 
-def katalog(kacheln_json, quelle, out_dir, stand, base_url):
+def katalog(kacheln_json, quelle, out_dir, stand, base_url, raster="3s"):
     with open(kacheln_json, encoding="utf-8") as f:
         k = json.load(f)
     q = QUELLEN[quelle]
@@ -176,8 +187,9 @@ def katalog(kacheln_json, quelle, out_dir, stand, base_url):
         ks = [n for n in g["kacheln"] if n in tiles]
         gebiete_out.append({**g, "kacheln": ks, "groesse": sum(tiles[n]["groesse"] for n in ks)})
     result = {
-        "format": FORMAT, "quelle": q["name"], "quelleId": quelle, "aufloesung": q["aufloesung"], "raster": DIM,
-        "kachelformat": "SRTM-HGT, 1° × 1°, Int16 big-endian, Meter über Geoid (EGM2008), -32768 = keine Daten, gzip",
+        "format": FORMAT, "quelle": q["name"], "quelleId": quelle, "aufloesung": AUFLOESUNG[(quelle, raster)], "raster": RASTER[raster],
+        "kachelformat": f"SRTM-HGT {RASTER[raster]} × {RASTER[raster]}, 1° × 1°, Int16 big-endian, Meter über Geoid (EGM2008), -32768 = keine Daten, gzip",
+        "valhalla": RASTER[raster] == DIM,
         "stand": stand, "attribution": q["attribution"], "attributionEn": q["attributionEn"], "lizenz": LIZENZ, "lizenzUrl": LIZENZ_URL,
         "laender": k["laender"], "gebiete": gebiete_out, "kacheln": [tiles[n] for n in sorted(tiles)],
         "groesse": sum(t["groesse"] for t in tiles.values()),
@@ -197,7 +209,9 @@ def bericht(kacheln_json, mess_dirs):
     varianten = []
     for d in mess_dirs:
         name = os.path.basename(os.path.normpath(d))
-        varianten.append((f"{name} 1″ (3601²)", {os.path.basename(p)[:-7]: os.path.getsize(p) for p in glob.glob(os.path.join(d, "*.hgt.gz"))}))
+        dateien = sorted(glob.glob(os.path.join(d, "*.hgt.gz")))
+        dim = round(math.sqrt(len(gzip.open(dateien[0]).read()) / 2)) if dateien else DIM
+        varianten.append((f"{name} {'1″' if dim == DIM else '3″'} ({dim}²)", {os.path.basename(p)[:-7]: os.path.getsize(p) for p in dateien}))
         drei = {os.path.basename(p)[:-7]: os.path.getsize(p) for p in glob.glob(os.path.join(d, "3s", "*.hgt.gz"))}
         if drei:
             varianten.append((f"{name} 3″ (1201², nur Vergleich)", drei))
@@ -213,9 +227,8 @@ def bericht(kacheln_json, mess_dirs):
         lines.append(f"| **{land['id']} gesamt** | {len(ks)} | " + " | ".join(mb(sum(s.get(n, 0) for n in ks)) for _, s in varianten) + " |")
     ks = k["kacheln"]
     lines.append(f"| **alle** | {len(ks)} | " + " | ".join(mb(sum(s.values())) for _, s in varianten) + " |")
-    roh = len([n for n in ks if any(n in s for _, s in varianten)]) * DIM * DIM * 2
     lines.append("")
-    lines.append(f"Ungepackt (3601², alle Kacheln mit Daten): {mb(roh)} MB. Mittel je Kachel: "
+    lines.append("Mittel je Kachel: "
                  + ", ".join(f"{v}: {mb(sum(s.values()) / max(1, len(s)))} MB" for v, s in varianten))
     print("\n".join(lines))
 
@@ -227,7 +240,7 @@ if __name__ == "__main__":
     elif cmd == "dem":
         dem(*args)
     elif cmd == "bauen":
-        bauen(args[0], args[1], args[2], args[3], roh3="--roh3" in args)
+        bauen(args[0], args[1], args[2], args[3], args[4] if len(args) > 4 and not args[4].startswith("--") else "1s", roh3="--roh3" in args)
     elif cmd == "katalog":
         katalog(*args)
     elif cmd == "bericht":

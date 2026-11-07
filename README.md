@@ -12,7 +12,7 @@ Die App lädt die Pakete direkt von hier, ohne Anmeldung. Der App-Code liegt nic
 |---|---|
 | [`katalog.json`](katalog.json) | Verzeichnis aller Pakete (Land, Stand, Grösse, Prüfsumme, Download-Adressen). Die App liest nur diese Datei; ziehen die Pakete einmal um, ändern sich nur die Adressen hier. |
 | [Releases](../../releases) | Die Pakete selbst, ein Release je Land und Stand, z. B. `routing-ch-2026-11-02`. Pakete über 1,9 GB sind in Teile `…zip.001`, `…zip.002` aufgeteilt. |
-| [`.github/workflows/hoehen.yml`](.github/workflows/hoehen.yml) | Höhendaten (#213): Copernicus DEM GLO-90 (Standard) bzw. GLO-30 → 1°-Kacheln SRTM-HGT 3601 × 3601 (`.hgt.gz`) je Land bzw. Region (gleiche Gebiete wie der Routing-Verbund) → Release `hoehen-<quelle>-<stand>` (eine Datei je Kachel) → Katalog, Abschnitt `hoehen`. Pull Requests messen nur (Grösse, Laufzeit). |
+| [`.github/workflows/hoehen.yml`](.github/workflows/hoehen.yml) | Höhendaten (#213): Copernicus DEM GLO-90 (Standard) bzw. GLO-30 → 1°-Kacheln SRTM-HGT (`.hgt.gz`) je Land bzw. Region (gleiche Gebiete wie der Routing-Verbund), Raster 3″ (1201², Standard) oder 1″ (3601², nur dieses liest Valhalla) → Release `hoehen-<quelle>-<raster>-<stand>` (eine Datei je Kachel) → Katalog, Abschnitt `hoehen`. Pull Requests messen nur (Grösse, Laufzeit, Valhalla-Probe). |
 | [`.github/workflows/routing-land.yml`](.github/workflows/routing-land.yml) | Erzeugung: Geofabrik-Auszug des Landes → Valhalla 3.9.0 → Paket im GSAK-NG-Paketformat 1 → Release → Katalog. Nur von Hand gestartet. |
 
 Aktualisierung etwa alle drei Monate. Ältere Stände bleiben als Releases erhalten, der Katalog zeigt je Land den neusten.
@@ -24,7 +24,9 @@ Ein ZIP (ungepackt gespeichert) mit `gsakng-routing.json` (Beschreibung: Land, B
 
 ## Höhendaten (Format 1)
 
-Eine Datei je 1°-Kachel, z. B. `N47E008.hgt.gz`: SRTM-HGT 3601 × 3601, Int16 big-endian, Meter, -32768 = keine Daten, gzip. Der Katalog
+Eine Datei je 1°-Kachel, z. B. `N47E008.hgt.gz`: SRTM-HGT 1201 × 1201 (3″) bzw. 3601 × 3601 (1″, `raster` im Katalog), Int16 big-endian,
+Meter, -32768 = keine Daten, gzip. Die Höhen entlang von Offline-Routen liefert Valhalla aus den Routing-Kacheln (beim Bau mit Höhen
+erzeugt); HGT-Kacheln braucht die App für «Höhen aktualisieren», Valhalla nur mit 1″ (`valhalla: true`). Der Katalog
 nennt je Gebiet die Kacheln und die Summe der Grössen, je Kachel Adresse, Grösse und SHA-256. Kacheln an Grenzen gehören zu mehreren Gebieten;
 die App lädt jede nur einmal.
 

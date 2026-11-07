@@ -1,6 +1,6 @@
-# Höhendaten je Land/Region für GSAK-NG (#213 Stufe 2): Copernicus DEM (AWS Open Data) → 1°-Kacheln SRTM-HGT 3601² (.hgt.gz)
-# für Valhalla (additional_data.elevation) und «Höhen aktualisieren». Gleiche Gebiete wie der Routing-Verbund (verbund/gebiete.py).
-#   Von Hand («Run workflow»): Quelle wählen → Release «hoehen-<quelle>-<stand>» (eine Datei je Kachel) → katalog.json, Abschnitt «hoehen».
+# Höhendaten je Land/Region für GSAK-NG (#213 Stufe 2): Copernicus DEM (AWS Open Data) → 1°-Kacheln SRTM-HGT (.hgt.gz) für
+# «Höhen aktualisieren» (3″, 1201²) bzw. zusätzlich Valhalla additional_data.elevation (nur 1″, 3601²). Gleiche Gebiete wie der Routing-Verbund.
+#   Von Hand («Run workflow»): Quelle und Raster wählen → Release «hoehen-<quelle>-<raster>-<stand>» (eine Datei je Kachel) → katalog.json «hoehen».
 #   Pull Request: nur Messung (GLO-90 und GLO-30, Grösse je Gebiet, Laufzeit) – kein Release, kein Katalog; Bericht in der Zusammenfassung.
 # Öffentliches Repository: Laufzeit kostenlos.
 name: hoehen
@@ -13,6 +13,11 @@ on:
         type: choice
         options: [glo90, glo30]
         default: glo90
+      raster:
+        description: "Raster: 3s = 1201² (≈ 90 m, klein), 1s = 3601² (für Valhalla additional_data.elevation)"
+        type: choice
+        options: ["3s", "1s"]
+        default: "3s"
   pull_request:
     paths:
       - "hoehen/**"
@@ -32,6 +37,7 @@ jobs:
     env:
       MESSUNG: ${{ github.event_name == 'pull_request' && '1' || '' }}
       QUELLE: ${{ inputs.quelle || 'glo90' }}
+      RASTER: ${{ inputs.raster || '1s' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -69,7 +75,7 @@ jobs:
             n=$(ls "work/dem-$q" | wc -l); dl=$(du -sm "work/dem-$q" | cut -f1)
             printf '%s: %s DEM-Kacheln geladen (%s MB)\t%s\n' "$q" "$n" "$dl" $(( $(date +%s) - t )) >> work/zeiten.txt
             t=$(date +%s)
-            python3 hoehen/hoehen.py bauen work/kacheln.json "$q" "work/dem-$q" "out/$q" ${MESSUNG:+--roh3}
+            python3 hoehen/hoehen.py bauen work/kacheln.json "$q" "work/dem-$q" "out/$q" "$RASTER" ${MESSUNG:+--roh3}
             printf '%s: HGT bauen und packen\t%s\n' "$q" $(( $(date +%s) - t )) >> work/zeiten.txt
             rm -rf "work/dem-$q"
             du -sh "out/$q"; df -h /
@@ -131,12 +137,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           STAND=$(date -u +%F)
-          TAG="hoehen-${QUELLE}-${STAND}"
+          TAG="hoehen-${QUELLE}-${RASTER}-${STAND}"
           python3 hoehen/hoehen.py katalog work/kacheln.json "$QUELLE" "out/$QUELLE" "$STAND" \
-            "https://github.com/${GITHUB_REPOSITORY}/releases/download/${TAG}"
+            "https://github.com/${GITHUB_REPOSITORY}/releases/download/${TAG}" "$RASTER"
           {
-            echo "Höhendaten für GSAK-NG: $(jq -r .quelle out/$QUELLE/hoehen.json), 1°-Kacheln im SRTM-HGT-Format (3601 × 3601, gzip)."
-            echo "Für Valhalla (\`additional_data.elevation\`) und «Höhen aktualisieren». Stand $STAND."
+            echo "Höhendaten für GSAK-NG: $(jq -r .quelle out/$QUELLE/hoehen.json), $(jq -r .aufloesung out/$QUELLE/hoehen.json), 1°-Kacheln im SRTM-HGT-Format (gzip)."
+            echo "Für «Höhen aktualisieren»$( [ "$RASTER" = 1s ] && echo ' und Valhalla (additional_data.elevation)'). Stand $STAND."
             echo
             cat bericht.md
             echo
