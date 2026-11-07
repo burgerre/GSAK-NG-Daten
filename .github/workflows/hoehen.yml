@@ -89,6 +89,28 @@ jobs:
             echo "Gesamt: $(( $(date +%s) - beginn )) s"
           } | tee bericht.md >> "$GITHUB_STEP_SUMMARY"
 
+      # Messung: Liefert Valhalla 3.9.0 Höhen entlang der Route (elevation_interval) mit den Verbundkacheln – mit und ohne HGT-Ordner?
+      - name: Valhalla-Probe (Liechtenstein)
+        if: env.MESSUNG
+        continue-on-error: true
+        run: |
+          mkdir -p probe/hgt/N47 && cd probe
+          for t in basis li; do
+            curl -fsSL -o "$t.zip" "$(jq -r --arg t "$t" '.verbund.teile[] | select(.id == $t) | .url' ../katalog.json)"
+            unzip -q -o "$t.zip" -x gsakng-routing.json && rm "$t.zip"
+          done
+          cp ../out/glo90/N47E009.hgt.gz hgt/N47/
+          REQ='{"locations":[{"lat":47.1410,"lon":9.5215},{"lat":47.1010,"lon":9.6090}],"costing":"pedestrian","elevation_interval":30,"directions_options":{"units":"kilometers"}}'
+          for fall in ohne mit; do
+            ELE=""; [ "$fall" = mit ] && ELE=/data/hgt
+            jq --arg e "$ELE" '.mjolnir.tile_dir = "/data/tiles" | .mjolnir.tile_extract = "" | .mjolnir.traffic_extract = "" | .additional_data.elevation = $e' valhalla.json > "cfg-$fall.json"
+            docker run --rm -v "$PWD:/data" -w /data ghcr.io/valhalla/valhalla:3.9.0 valhalla_service "/data/cfg-$fall.json" route "$REQ" > "route-$fall.json" 2> "route-$fall.log" || true
+            echo "### Route $fall HGT-Ordner" >> "$GITHUB_STEP_SUMMARY"
+            jq -c '{fehler: .error, laenge_km: .trip.summary.length, intervall: .trip.legs[0].elevation_interval, n: (.trip.legs[0].elevation | length), erste: (.trip.legs[0].elevation[0:8]), max: (.trip.legs[0].elevation | max), min: (.trip.legs[0].elevation | min)}' "route-$fall.json" | tee -a "$GITHUB_STEP_SUMMARY" || tail -5 "route-$fall.log"
+            docker run --rm -v "$PWD:/data" -w /data ghcr.io/valhalla/valhalla:3.9.0 valhalla_service "/data/cfg-$fall.json" height               '{"shape":[{"lat":47.1410,"lon":9.5215},{"lat":47.1010,"lon":9.6090}]}' 2>/dev/null | tee -a "$GITHUB_STEP_SUMMARY" || true
+            echo >> "$GITHUB_STEP_SUMMARY"
+          done
+
       - name: Messergebnis (Bericht und Musterkacheln)
         if: env.MESSUNG
         uses: actions/upload-artifact@v4
@@ -101,6 +123,7 @@ jobs:
             out/glo90/N47E008.hgt.gz
             out/glo30/N47E008.hgt.gz
             out/glo90/N46E007.hgt.gz
+            probe/route-*.json
 
       - name: Release
         if: ${{ !env.MESSUNG }}
