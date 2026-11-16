@@ -24,6 +24,9 @@ jobs:
       VALHALLA_IMAGE: ghcr.io/valhalla/valhalla:3.9.0
       VALHALLA_MOBILE: "0.6.4"
       VERBUND: mitteleuropa
+      # Länder dieses Baus (Kennungen aus verbund/gebiete.py). Leer = alle – das sprengt den GitHub-Läufer,
+      # ein ganzer Kontinent gehört auf den Build-PC: verbund/verbund-lokal.sh (#1216).
+      VERBUND_GEBIETE: ch,li,at,de,fr
     steps:
       - uses: actions/checkout@v4
 
@@ -44,9 +47,10 @@ jobs:
         run: |
           mkdir -p work/pbf work/poly out
           # Auszüge für den Bau (ganze Länder) und Gebiete für die Download-Teile (Länder bzw. Regionen grosser Länder)
-          for x in europe/switzerland europe/liechtenstein europe/austria europe/germany; do
-            curl -fsSL -o "work/pbf/$(basename $x).osm.pbf" "https://download.geofabrik.de/${x}-latest.osm.pbf"
+          python3 verbund/gebiete.py --laender-poly | while read -r x; do
+            curl -fsSL -o "work/pbf/$(basename $x).osm.pbf" "https://download.geofabrik.de/${x}-latest.osm.pbf" &
           done
+          wait
           python3 verbund/gebiete.py --list | while IFS=$'\t' read -r id poly; do
             curl -fsSL -o "work/poly/$id.poly" "https://download.geofabrik.de/${poly}.poly"
           done
