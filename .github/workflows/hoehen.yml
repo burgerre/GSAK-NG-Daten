@@ -64,7 +64,8 @@ jobs:
       - name: Gebiete und Kacheln
         run: |
           python3 verbund/gebiete.py --list | while IFS=$'\t' read -r id poly; do
-            curl -fsSL -o "work/poly/$id.poly" "https://download.geofabrik.de/${poly}.poly"
+            # Geofabrik weist einzelne Verbindungen zeitweise ab – mehrmals versuchen statt den ganzen Lauf zu verlieren
+            curl -fsSL --retry 6 --retry-delay 10 --retry-all-errors --connect-timeout 20 -o "work/poly/$id.poly" "https://download.geofabrik.de/${poly}.poly"
           done
           python3 hoehen/hoehen.py kacheln work/poly work/kacheln.json
           jq -r '.gebiete[] | "\(.id)\t\(.kacheln | length)\t\(.kacheln | join(" "))"' work/kacheln.json
