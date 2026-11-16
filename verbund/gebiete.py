@@ -6,7 +6,7 @@ keinen eigenen, doppelten Teil.
 import sys
 
 # id, Geofabrik-Pfad des Polygons, Name deutsch, Name englisch, typ, teilVon
-LAENDER = [
+LAENDER_EUROPA = [
     ("al", "europe/albania", "Albanien", "Albania"),
     ("ad", "europe/andorra", "Andorra", "Andorra"),
     ("at", "europe/austria", "Österreich", "Austria"),
@@ -59,7 +59,7 @@ LAENDER = [
 ]
 
 # Grosse Länder: Regionen statt eines einzigen Teils (Auszug grösser als rund 1 GB)
-REGIONEN = {
+REGIONEN_EUROPA = {
     "fr": [   # Polygone unter europe/france
         ("alsace", "Alsace", "Alsace"),
         ("aquitaine", "Aquitaine", "Aquitaine"),
@@ -177,7 +177,108 @@ REGIONEN = {
 }
 
 
-POLY_ELTERN = {"gb": "europe/united-kingdom"}
+POLY_ELTERN_EUROPA = {"gb": "europe/united-kingdom"}
+
+# ---------------------------------------------------------------------------
+# Nordamerika (#1216). Zuschnitt nach den Geofabrik-Auszügen unter north-america: die USA und Kanada kommen als Regionen,
+# weil die Gesamtauszüge weit über einem GB liegen; Mexiko und Grönland bleiben je ein Teil.
+LAENDER_NORDAMERIKA = [
+    ("ca", "north-america/canada", "Kanada", "Canada"),
+    ("gl", "north-america/greenland", "Grönland", "Greenland"),
+    ("mx", "north-america/mexico", "Mexiko", "Mexico"),
+    ("us", "north-america/us", "Vereinigte Staaten", "United States"),
+]
+
+REGIONEN_NORDAMERIKA = {
+    "ca": [   # Polygone unter north-america/canada
+        ("alberta", "Alberta", "Alberta"),
+        ("british-columbia", "Britisch-Kolumbien", "British Columbia"),
+        ("manitoba", "Manitoba", "Manitoba"),
+        ("new-brunswick", "New Brunswick", "New Brunswick"),
+        ("newfoundland-and-labrador", "Neufundland und Labrador", "Newfoundland and Labrador"),
+        ("northwest-territories", "Nordwest-Territorien", "Northwest Territories"),
+        ("nova-scotia", "Nova Scotia", "Nova Scotia"),
+        ("nunavut", "Nunavut", "Nunavut"),
+        ("ontario", "Ontario", "Ontario"),
+        ("prince-edward-island", "Prince Edward Island", "Prince Edward Island"),
+        ("quebec", "Québec", "Quebec"),
+        ("saskatchewan", "Saskatchewan", "Saskatchewan"),
+        ("yukon", "Yukon", "Yukon"),
+    ],
+    "us": [   # Polygone unter north-america/us
+        ("alabama", "Alabama", "Alabama"),
+        ("alaska", "Alaska", "Alaska"),
+        ("arizona", "Arizona", "Arizona"),
+        ("arkansas", "Arkansas", "Arkansas"),
+        ("california", "Kalifornien", "California"),
+        ("colorado", "Colorado", "Colorado"),
+        ("connecticut", "Connecticut", "Connecticut"),
+        ("delaware", "Delaware", "Delaware"),
+        ("district-of-columbia", "Washington, D.C.", "District of Columbia"),
+        ("florida", "Florida", "Florida"),
+        ("georgia", "Georgia", "Georgia"),
+        ("hawaii", "Hawaii", "Hawaii"),
+        ("idaho", "Idaho", "Idaho"),
+        ("illinois", "Illinois", "Illinois"),
+        ("indiana", "Indiana", "Indiana"),
+        ("iowa", "Iowa", "Iowa"),
+        ("kansas", "Kansas", "Kansas"),
+        ("kentucky", "Kentucky", "Kentucky"),
+        ("louisiana", "Louisiana", "Louisiana"),
+        ("maine", "Maine", "Maine"),
+        ("maryland", "Maryland", "Maryland"),
+        ("massachusetts", "Massachusetts", "Massachusetts"),
+        ("michigan", "Michigan", "Michigan"),
+        ("minnesota", "Minnesota", "Minnesota"),
+        ("mississippi", "Mississippi", "Mississippi"),
+        ("missouri", "Missouri", "Missouri"),
+        ("montana", "Montana", "Montana"),
+        ("nebraska", "Nebraska", "Nebraska"),
+        ("nevada", "Nevada", "Nevada"),
+        ("new-hampshire", "New Hampshire", "New Hampshire"),
+        ("new-jersey", "New Jersey", "New Jersey"),
+        ("new-mexico", "New Mexico", "New Mexico"),
+        ("new-york", "New York", "New York"),
+        ("north-carolina", "North Carolina", "North Carolina"),
+        ("north-dakota", "North Dakota", "North Dakota"),
+        ("ohio", "Ohio", "Ohio"),
+        ("oklahoma", "Oklahoma", "Oklahoma"),
+        ("oregon", "Oregon", "Oregon"),
+        ("pennsylvania", "Pennsylvania", "Pennsylvania"),
+        ("puerto-rico", "Puerto Rico", "Puerto Rico"),
+        ("rhode-island", "Rhode Island", "Rhode Island"),
+        ("south-carolina", "South Carolina", "South Carolina"),
+        ("south-dakota", "South Dakota", "South Dakota"),
+        ("tennessee", "Tennessee", "Tennessee"),
+        ("texas", "Texas", "Texas"),
+        ("us-virgin-islands", "Amerikanische Jungferninseln", "US Virgin Islands"),
+        ("utah", "Utah", "Utah"),
+        ("vermont", "Vermont", "Vermont"),
+        ("virginia", "Virginia", "Virginia"),
+        ("washington", "Washington", "Washington"),
+        ("west-virginia", "West Virginia", "West Virginia"),
+        ("wisconsin", "Wisconsin", "Wisconsin"),
+        ("wyoming", "Wyoming", "Wyoming"),
+    ],
+}
+
+POLY_ELTERN_NORDAMERIKA = {}
+
+# Verbund -> (Länder, Regionen, Polygon-Eltern). Ein Verbund ist ein einziger Valhalla-Bau; Kacheln verschiedener Bauten
+# passen nicht zusammen, darum wird je Kontinent gebaut und veröffentlicht.
+KONTINENTE = {
+    "europa": (LAENDER_EUROPA, REGIONEN_EUROPA, POLY_ELTERN_EUROPA),
+    "nordamerika": (LAENDER_NORDAMERIKA, REGIONEN_NORDAMERIKA, POLY_ELTERN_NORDAMERIKA),
+}
+
+
+def tabellen():
+    """Tabellen des Verbunds aus der Umgebungsvariablen VERBUND (Standard europa)."""
+    import os
+    name = os.environ.get("VERBUND", "europa").strip() or "europa"
+    if name not in KONTINENTE:
+        raise SystemExit("Unbekannter Verbund: %s (bekannt: %s)" % (name, ", ".join(sorted(KONTINENTE))))
+    return KONTINENTE[name]
 
 
 def auswahl():
@@ -187,9 +288,10 @@ def auswahl():
     welche Länder ein Bau umfasst – ein kleiner Bau ist schneller fertig als ein ganzer Kontinent."""
     import os
     gewaehlt = [x.strip() for x in os.environ.get("VERBUND_GEBIETE", "").split(",") if x.strip()]
+    laender_tab = tabellen()[0]
     if not gewaehlt:
-        return LAENDER
-    bekannt = {l[0]: l for l in LAENDER}
+        return laender_tab
+    bekannt = {l[0]: l for l in laender_tab}
     fehlt = [x for x in gewaehlt if x not in bekannt]
     if fehlt:
         raise SystemExit("Unbekannte Länder in VERBUND_GEBIETE: " + ", ".join(fehlt))
@@ -199,17 +301,19 @@ def auswahl():
 def gebiete():
     """Alle Download-Gebiete: dict mit id, poly, name, typ, land."""
     result = []
+    _, regionen_tab, poly_eltern = tabellen()
     for land, poly, de, en in auswahl():
-        if land in REGIONEN:
-            for rid, rde, ren in REGIONEN[land]:
-                result.append({"id": f"{land}-{rid}", "poly": POLY_ELTERN.get(land, poly) + "/" + rid, "name": {"de": rde, "en": ren}, "typ": "region", "land": land})
+        if land in regionen_tab:
+            for rid, rde, ren in regionen_tab[land]:
+                result.append({"id": f"{land}-{rid}", "poly": poly_eltern.get(land, poly) + "/" + rid, "name": {"de": rde, "en": ren}, "typ": "region", "land": land})
         else:
             result.append({"id": land, "poly": poly, "name": {"de": de, "en": en}, "typ": "land", "land": land})
     return result
 
 
 def laender():
-    return [{"id": land, "name": {"de": de, "en": en}, "regionen": [f"{land}-{r[0]}" for r in REGIONEN.get(land, [])]}
+    regionen_tab = tabellen()[1]
+    return [{"id": land, "name": {"de": de, "en": en}, "regionen": [f"{land}-{r[0]}" for r in regionen_tab.get(land, [])]}
             for land, _, de, en in auswahl()]
 
 

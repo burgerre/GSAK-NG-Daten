@@ -11,6 +11,10 @@
 set -u
 VERBUND=${1:?Name des Verbunds, z. B. europa}
 QUELLE=${2:?Geofabrik-Pfad des Kontinents, z. B. europe}
+export VERBUND            # gebiete.py wählt damit die Tabelle des Kontinents
+# GESAMTAUSZUG=<Datei>: fertiger Kontinentauszug (z. B. north-america-latest.osm.pbf). Dann entfallen die Länderauszüge
+# und das Zusammenführen; die Polygone werden trotzdem geladen, weil die Teile danach daran geschnitten werden.
+GESAMTAUSZUG=${GESAMTAUSZUG:-}
 D=${ARBEIT:-$HOME/verbund-$VERBUND}
 REPO=$(cd "$(dirname "$0")/.." && pwd)
 IMG=ghcr.io/valhalla/valhalla:3.9.0
@@ -30,6 +34,11 @@ command -v zip >/dev/null || { log "zip fehlt"; exit 1; }
 python3 -c "import shapely" 2>/dev/null || { log "python3-shapely fehlt"; exit 1; }
 
 # 1. Auszüge je Land (so bleibt der Bau auf die Gebiete beschränkt, die auch ladbar sind)
+if [ -n "$GESAMTAUSZUG" ]; then
+    [ -s "$GESAMTAUSZUG" ] || { log "Gesamtauszug fehlt: $GESAMTAUSZUG"; exit 1; }
+    [ -s verbund.osm.pbf ] || ln -f "$GESAMTAUSZUG" verbund.osm.pbf 2>/dev/null || cp "$GESAMTAUSZUG" verbund.osm.pbf
+    log "Gesamtauszug $(du -h verbund.osm.pbf | cut -f1) übernommen, keine Länderauszüge nötig"
+fi
 log "Auszüge laden"
 python3 "$REPO/verbund/gebiete.py" --laender-poly 2>/dev/null | sort -u > laender.txt || true
 if [ ! -s laender.txt ]; then
@@ -48,8 +57,8 @@ lade_einen() {
 }
 export -f lade_einen
 rm -f pbf/*.teil
-xargs -a laender.txt -I{} -P 5 bash -c 'lade_einen "$@"' _ {} || { log "Auszüge unvollständig"; exit 1; }
-log "Auszüge: $(du -sh pbf | cut -f1)"
+[ -n "$GESAMTAUSZUG" ] || xargs -a laender.txt -I{} -P 5 bash -c 'lade_einen "$@"' _ {} || { log "Auszüge unvollständig"; exit 1; }
+[ -n "$GESAMTAUSZUG" ] || log "Auszüge: $(du -sh pbf | cut -f1)"
 
 # 2. Polygone der Download-Gebiete
 log "Polygone laden"
@@ -57,7 +66,11 @@ python3 "$REPO/verbund/gebiete.py" --list | while IFS=$'\t' read -r id poly; do
     [ -s "poly/$id.poly" ] || curl -fsSL -o "poly/$id.poly" "https://download.geofabrik.de/${poly}.poly" || log "Polygon $id fehlt"
 done
 
-OSM_DATE=$(for f in pbf/*.osm.pbf; do osmium fileinfo -g header.option.osmosis_replication_timestamp "$f" | cut -c1-10; done | sort | head -1)
+if [ -n "$GESAMTAUSZUG" ]; then
+    OSM_DATE=$(osmium fileinfo -g header.option.osmosis_replication_timestamp verbund.osm.pbf | cut -c1-10)
+else
+    OSM_DATE=$(for f in pbf/*.osm.pbf; do osmium fileinfo -g header.option.osmosis_replication_timestamp "$f" | cut -c1-10; done | sort | head -1)
+fi
 BBOX=$(python3 "$REPO/verbund/gebiete.py" --bbox poly)
 log "OSM-Stand $OSM_DATE, Umriss $BBOX"
 
