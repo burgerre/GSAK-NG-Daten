@@ -18,6 +18,10 @@ on:
         type: choice
         options: ["3s", "1s"]
         default: "3s"
+      gebiete:
+        description: "Länder dieses Baus (Kürzel, durch Komma), leer = alle aus verbund/gebiete.py – dieselben wie beim Routing"
+        type: string
+        default: "ch,li,at,de,fr"
   pull_request:
     paths:
       - "hoehen/**"
@@ -38,6 +42,8 @@ jobs:
       MESSUNG: ${{ github.event_name == 'pull_request' && '1' || '' }}
       QUELLE: ${{ inputs.quelle || 'glo90' }}
       RASTER: ${{ inputs.raster || '1s' }}
+      # Höhendaten decken dieselben Länder ab wie der Routing-Verbund; ohne Angabe wären es alle Gebiete aus verbund/gebiete.py
+      VERBUND_GEBIETE: ${{ inputs.gebiete }}
     steps:
       - uses: actions/checkout@v4
 
