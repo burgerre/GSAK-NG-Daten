@@ -331,6 +331,15 @@ def bbox(poly_dir):
                         xs.append(float(parts[0])); ys.append(float(parts[1]))
                     except ValueError:
                         pass
+    # Datumsgrenze: Alaska reicht mit fünf Polygonpunkten über 180° hinaus. Ohne Korrektur spannt der Umriss die ganze Erde
+    # auf (-180..180) und valhalla_build_elevation lädt Höhendaten für Europa, Afrika und Asien mit. Eine so kleine
+    # Minderheit auf der anderen Seite wird darum weggelassen; die paar Inseln bekommen dann keine Höhendaten.
+    west = [x for x in xs if x <= 0]
+    ost = [x for x in xs if x > 0]
+    if west and ost:
+        klein = west if len(west) < len(ost) else ost
+        if len(klein) < 0.02 * len(xs):
+            xs = ost if klein is west else west
     return f"{min(xs):.5f},{min(ys):.5f},{max(xs):.5f},{max(ys):.5f}"
 
 
