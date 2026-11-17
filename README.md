@@ -11,8 +11,10 @@ Die App lädt die Pakete direkt von hier, ohne Anmeldung. Der App-Code liegt nic
 | Ort | Inhalt |
 |---|---|
 | [`katalog.json`](katalog.json) | Verzeichnis aller Pakete (Land, Stand, Grösse, Prüfsumme, Download-Adressen). Die App liest nur diese Datei; ziehen die Pakete einmal um, ändern sich nur die Adressen hier. |
-| [Releases](../../releases) | Die Pakete selbst, ein Release je Land und Stand, z. B. `routing-ch-2026-11-02`. Pakete über 1,9 GB sind in Teile `…zip.001`, `…zip.002` aufgeteilt. |
+| [Releases](../../releases) | Die Pakete selbst, ein Release je Land und Stand, z. B. `routing-ch-2026-11-02`. Pakete über 1,9 GB sind in Teile `…zip.001`, `…zip.002` aufgeteilt. GitHub nimmt **höchstens 1000 Anhänge je Release**; die Höhendaten für Europa (1396 Kacheln) liegen darum in `hoehen-…-<stand>` und `hoehen-…-<stand>-teil2`. Der Katalog nennt je Kachel die genaue Adresse, für die App macht die Aufteilung keinen Unterschied. |
 | [`.github/workflows/hoehen.yml`](.github/workflows/hoehen.yml) | Höhendaten (#213): Copernicus DEM GLO-90 (Standard) bzw. GLO-30 → 1°-Kacheln SRTM-HGT (`.hgt.gz`) je Land bzw. Region (gleiche Gebiete wie der Routing-Verbund), Raster 3″ (1201², Standard) oder 1″ (3601², nur dieses liest Valhalla) → Release `hoehen-<quelle>-<raster>-<stand>` (eine Datei je Kachel) → Katalog, Abschnitt `hoehen`. Pull Requests messen nur (Grösse, Laufzeit, Valhalla-Probe). |
+| [`hoehen/bau-buildpc.sh`](hoehen/bau-buildpc.sh), [`hoehen/veroeffentlichen-buildpc.sh`](hoehen/veroeffentlichen-buildpc.sh) | Dieselben Schritte auf dem Build-PC, wenn die Menge für CI zu gross ist: ganz Europa in einem Lauf, Veröffentlichung mit automatischer Aufteilung auf mehrere Releases. |
+| [`karten/bau-buildpc.sh`](karten/bau-buildpc.sh) | Vektorkacheln je Land (PMTiles, OpenMapTiles-Schema) mit planetiler, mit Grössen- und Zeitmessung je Land (#1332). Siehe [`karten/QUELLEN.md`](karten/QUELLEN.md). |
 | [`.github/workflows/routing-land.yml`](.github/workflows/routing-land.yml) | Erzeugung: Geofabrik-Auszug des Landes → Valhalla 3.9.0 → Paket im GSAK-NG-Paketformat 1 → Release → Katalog. Nur von Hand gestartet. |
 
 Aktualisierung etwa alle drei Monate. Ältere Stände bleiben als Releases erhalten, der Katalog zeigt je Land den neusten.
