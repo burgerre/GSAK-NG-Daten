@@ -1,6 +1,6 @@
 {
   "katalog": 1,
-  "aktualisiert": "2026-11-17T20:13:33Z",
+  "aktualisiert": "2026-11-18T17:47:01Z",
   "hinweis": "Verzeichnis der Offline-Pakete für GSAK-NG. Daten © OpenStreetMap-Mitwirkende (ODbL).",
   "routing": [
     {
@@ -38184,6 +38184,756 @@
     "release_teile": [
       "hoehen-glo90-3s-2026-11-17",
       "hoehen-glo90-3s-2026-11-17-teil2"
+    ]
+  },
+  "karten": {
+    "format": 1,
+    "schema": "openmaptiles",
+    "stand": "2026-11-17",
+    "quelle": "OpenStreetMap (Auszüge von Geofabrik), planetiler",
+    "attribution": "Karte: © OpenStreetMap contributors, ODbL 1.0",
+    "attributionEn": "Map: © OpenStreetMap contributors, ODbL 1.0",
+    "lizenz": "ODbL-1.0",
+    "minzoom": 0,
+    "maxzoom": 14,
+    "laender": [
+      {
+        "id": "al",
+        "name": {
+          "de": "Albanien",
+          "en": "Albania"
+        }
+      },
+      {
+        "id": "ad",
+        "name": {
+          "de": "Andorra",
+          "en": "Andorra"
+        }
+      },
+      {
+        "id": "at",
+        "name": {
+          "de": "Österreich",
+          "en": "Austria"
+        }
+      },
+      {
+        "id": "azoren",
+        "name": {
+          "de": "Azoren",
+          "en": "Azores"
+        }
+      },
+      {
+        "id": "by",
+        "name": {
+          "de": "Belarus",
+          "en": "Belarus"
+        }
+      },
+      {
+        "id": "be",
+        "name": {
+          "de": "Belgien",
+          "en": "Belgium"
+        }
+      },
+      {
+        "id": "ba",
+        "name": {
+          "de": "Bosnien und Herzegowina",
+          "en": "Bosnia-Herzegovina"
+        }
+      },
+      {
+        "id": "bg",
+        "name": {
+          "de": "Bulgarien",
+          "en": "Bulgaria"
+        }
+      },
+      {
+        "id": "hr",
+        "name": {
+          "de": "Kroatien",
+          "en": "Croatia"
+        }
+      },
+      {
+        "id": "cy",
+        "name": {
+          "de": "Zypern",
+          "en": "Cyprus"
+        }
+      },
+      {
+        "id": "cz",
+        "name": {
+          "de": "Tschechien",
+          "en": "Czech Republic"
+        }
+      },
+      {
+        "id": "dk",
+        "name": {
+          "de": "Dänemark",
+          "en": "Denmark"
+        }
+      },
+      {
+        "id": "ee",
+        "name": {
+          "de": "Estland",
+          "en": "Estonia"
+        }
+      },
+      {
+        "id": "fo",
+        "name": {
+          "de": "Färöer",
+          "en": "Faroe Islands"
+        }
+      },
+      {
+        "id": "fi",
+        "name": {
+          "de": "Finnland",
+          "en": "Finland"
+        }
+      },
+      {
+        "id": "fr",
+        "name": {
+          "de": "Frankreich",
+          "en": "France"
+        }
+      },
+      {
+        "id": "ge",
+        "name": {
+          "de": "Georgien",
+          "en": "Georgia"
+        }
+      },
+      {
+        "id": "de",
+        "name": {
+          "de": "Deutschland",
+          "en": "Germany"
+        }
+      },
+      {
+        "id": "gb",
+        "name": {
+          "de": "Grossbritannien",
+          "en": "Great Britain"
+        }
+      },
+      {
+        "id": "gr",
+        "name": {
+          "de": "Griechenland",
+          "en": "Greece"
+        }
+      },
+      {
+        "id": "gg",
+        "name": {
+          "de": "Guernsey und Jersey",
+          "en": "Guernsey and Jersey"
+        }
+      },
+      {
+        "id": "hu",
+        "name": {
+          "de": "Ungarn",
+          "en": "Hungary"
+        }
+      },
+      {
+        "id": "is",
+        "name": {
+          "de": "Island",
+          "en": "Iceland"
+        }
+      },
+      {
+        "id": "ie",
+        "name": {
+          "de": "Irland und Nordirland",
+          "en": "Ireland and Northern Ireland"
+        }
+      },
+      {
+        "id": "im",
+        "name": {
+          "de": "Isle of Man",
+          "en": "Isle of Man"
+        }
+      },
+      {
+        "id": "it",
+        "name": {
+          "de": "Italien",
+          "en": "Italy"
+        }
+      },
+      {
+        "id": "xk",
+        "name": {
+          "de": "Kosovo",
+          "en": "Kosovo"
+        }
+      },
+      {
+        "id": "lv",
+        "name": {
+          "de": "Lettland",
+          "en": "Latvia"
+        }
+      },
+      {
+        "id": "li",
+        "name": {
+          "de": "Liechtenstein",
+          "en": "Liechtenstein"
+        }
+      },
+      {
+        "id": "lt",
+        "name": {
+          "de": "Litauen",
+          "en": "Lithuania"
+        }
+      },
+      {
+        "id": "lu",
+        "name": {
+          "de": "Luxemburg",
+          "en": "Luxembourg"
+        }
+      },
+      {
+        "id": "mk",
+        "name": {
+          "de": "Nordmazedonien",
+          "en": "Macedonia"
+        }
+      },
+      {
+        "id": "mt",
+        "name": {
+          "de": "Malta",
+          "en": "Malta"
+        }
+      },
+      {
+        "id": "md",
+        "name": {
+          "de": "Moldau",
+          "en": "Moldova"
+        }
+      },
+      {
+        "id": "mc",
+        "name": {
+          "de": "Monaco",
+          "en": "Monaco"
+        }
+      },
+      {
+        "id": "me",
+        "name": {
+          "de": "Montenegro",
+          "en": "Montenegro"
+        }
+      },
+      {
+        "id": "nl",
+        "name": {
+          "de": "Niederlande",
+          "en": "Netherlands"
+        }
+      },
+      {
+        "id": "no",
+        "name": {
+          "de": "Norwegen",
+          "en": "Norway"
+        }
+      },
+      {
+        "id": "pl",
+        "name": {
+          "de": "Polen",
+          "en": "Poland"
+        }
+      },
+      {
+        "id": "pt",
+        "name": {
+          "de": "Portugal",
+          "en": "Portugal"
+        }
+      },
+      {
+        "id": "ro",
+        "name": {
+          "de": "Rumänien",
+          "en": "Romania"
+        }
+      },
+      {
+        "id": "rs",
+        "name": {
+          "de": "Serbien",
+          "en": "Serbia"
+        }
+      },
+      {
+        "id": "sk",
+        "name": {
+          "de": "Slowakei",
+          "en": "Slovakia"
+        }
+      },
+      {
+        "id": "si",
+        "name": {
+          "de": "Slowenien",
+          "en": "Slovenia"
+        }
+      },
+      {
+        "id": "es",
+        "name": {
+          "de": "Spanien",
+          "en": "Spain"
+        }
+      },
+      {
+        "id": "se",
+        "name": {
+          "de": "Schweden",
+          "en": "Sweden"
+        }
+      },
+      {
+        "id": "ch",
+        "name": {
+          "de": "Schweiz",
+          "en": "Switzerland"
+        }
+      },
+      {
+        "id": "tr",
+        "name": {
+          "de": "Türkei",
+          "en": "Turkey"
+        }
+      },
+      {
+        "id": "ua",
+        "name": {
+          "de": "Ukraine",
+          "en": "Ukraine (with Crimea)"
+        }
+      }
+    ],
+    "dateien": [
+      {
+        "land": "al",
+        "datei": "albania.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/albania.pmtiles",
+        "groesse": 60935451,
+        "sha256": "4327bea3860ed05d59fb1d48acdf3bbcdb35c238eefd52ea38f9955bbb3c0ca2",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "ad",
+        "datei": "andorra.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/andorra.pmtiles",
+        "groesse": 3193398,
+        "sha256": "c7131a67809ec8f1082dedd1d5065898f0294c32cdd3bad790d8740066304b86",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "at",
+        "datei": "austria.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/austria.pmtiles",
+        "groesse": 612032953,
+        "sha256": "5021ff701181c48300d6f7b9309d52578a9ff53331f3fb78f35319bba8ffc52f",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "azoren",
+        "datei": "azores.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/azores.pmtiles",
+        "groesse": 15930255,
+        "sha256": "fbff357bfa077a631676806569ba5fdc8ba0adbe8e113563d633b7c6da20cdea",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "by",
+        "datei": "belarus.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/belarus.pmtiles",
+        "groesse": 517308227,
+        "sha256": "fc2da7fb46053a2128d29b946607cb126ef479103ca43f531ace2ab3801aae4b",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "be",
+        "datei": "belgium.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/belgium.pmtiles",
+        "groesse": 427479216,
+        "sha256": "17d988d68589bbd53e3a83d8a4e962f074fabe27668b50ebe6a5ade0e561bd73",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "ba",
+        "datei": "bosnia-herzegovina.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/bosnia-herzegovina.pmtiles",
+        "groesse": 197940983,
+        "sha256": "edca05d71447a318c92de92ab7fb9909be4df8f3eb441ca6da496824c4152fba",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "bg",
+        "datei": "bulgaria.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/bulgaria.pmtiles",
+        "groesse": 218592209,
+        "sha256": "bbaf6ca47920e7996df65e63f8604694747d8f7d2aaef95ecb3d03230ec24435",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "hr",
+        "datei": "croatia.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/croatia.pmtiles",
+        "groesse": 224837887,
+        "sha256": "aefcbec94e951e02338a672f70dd0f2a9d39fedbfcfdd1f222aab02c43505026",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "cy",
+        "datei": "cyprus.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/cyprus.pmtiles",
+        "groesse": 36299473,
+        "sha256": "22afc7f7670c9fbebea63dbc0b4412083231c97464076fa7f279d2d4dae9b1d9",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "cz",
+        "datei": "czech-republic.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/czech-republic.pmtiles",
+        "groesse": 655885337,
+        "sha256": "e9d72233ee9021a2351a8930777792066173b7c135825ab6b1d4505463b295b9",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "dk",
+        "datei": "denmark.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/denmark.pmtiles",
+        "groesse": 347948909,
+        "sha256": "dea00d49d68812293c7dce10db213f159817c25f01c6cd4c8daf4fa089d4bffc",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "ee",
+        "datei": "estonia.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/estonia.pmtiles",
+        "groesse": 150277724,
+        "sha256": "ad874d36f4e449cd6172bd4554cb4ee0d24211e7fb029adc0cdd98e2b3eac7c6",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "fo",
+        "datei": "faroe-islands.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/faroe-islands.pmtiles",
+        "groesse": 9746121,
+        "sha256": "03cf73639ed46603add55e45a01adc12b801564d2c1a2b596eea463c5f4bbba9",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "fi",
+        "datei": "finland.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/finland.pmtiles",
+        "groesse": 1084577787,
+        "sha256": "8cf9d8fe1d045e5d9be8c48f669658f137cf2cfb6a5a81b29bbe11dbb0875f59",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "fr",
+        "datei": "france.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/france.pmtiles",
+        "groesse": 3473255170,
+        "sha256": "9d8bccecb77659bb898c38946fc2b382c36d06c9755674a10246a35215014eec",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "ge",
+        "datei": "georgia.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/georgia.pmtiles",
+        "groesse": 125014000,
+        "sha256": "e6c495699617fddf5f9a2db3c9d76e5f66889db9f01e836d8f25462740700ca8",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "de",
+        "datei": "germany.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/germany.pmtiles",
+        "groesse": 3133558086,
+        "sha256": "b190302560aeea8259943ac6b12e3b12b7e42be7b9cf89c1499c885cce1a0b4d",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "gb",
+        "datei": "great-britain.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/great-britain.pmtiles",
+        "groesse": 1584634088,
+        "sha256": "9799c2e2fb3a526757a7470091e99b6656d92565edd451d014ea016b9725d06c",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "gr",
+        "datei": "greece.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/greece.pmtiles",
+        "groesse": 330441533,
+        "sha256": "cde2eb350e5291a592f647e244f7147bd9ea250182883c8137721e0814d7bba5",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "gg",
+        "datei": "guernsey-jersey.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/guernsey-jersey.pmtiles",
+        "groesse": 4353322,
+        "sha256": "4549c9b740ecd526c1e4e7defdad1ff4284bbc01c623a8e8ccfef4a6cbf46349",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "hu",
+        "datei": "hungary.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/hungary.pmtiles",
+        "groesse": 290986754,
+        "sha256": "59d11326e71815b63317b30430ffbefa114d82ae3e571e3b1d5f35a532734056",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "is",
+        "datei": "iceland.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/iceland.pmtiles",
+        "groesse": 166925027,
+        "sha256": "50a8f50db268e50b6006ed6082fcc28145ba870d3b71ab2395bda3385b619426",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "ie",
+        "datei": "ireland-and-northern-ireland.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/ireland-and-northern-ireland.pmtiles",
+        "groesse": 331723886,
+        "sha256": "dac770438cacfa3769eaeeab60e0be29c8074abdd7afc53c8fdd6464788f1c57",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "im",
+        "datei": "isle-of-man.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/isle-of-man.pmtiles",
+        "groesse": 5610070,
+        "sha256": "bf4640ba4ddde751dd28ef6375a7f2a1549fa1dd1dcc974dba83793938fb9d85",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "it",
+        "datei": "italy.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/italy.pmtiles",
+        "groesse": 1689579841,
+        "sha256": "8df616ed90707e879f7cfbf24c9799bf896ada56d3799182c6eda722282a8403",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "xk",
+        "datei": "kosovo.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/kosovo.pmtiles",
+        "groesse": 35963800,
+        "sha256": "5edadb6d468fa08c1c50f03ea9eeebc5093db3b909892e4f656db7b5402e09da",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "lv",
+        "datei": "latvia.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/latvia.pmtiles",
+        "groesse": 183447501,
+        "sha256": "d559abfba33a75806186fe213b494da66580ed7966f3b82dcacbd79f9be2d43e",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "li",
+        "datei": "liechtenstein.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/liechtenstein.pmtiles",
+        "groesse": 2422410,
+        "sha256": "b401a26dc76902e3f62618690935d258dd28a0d26ec7e0fc4c91f1b8b0cb4439",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "lt",
+        "datei": "lithuania.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/lithuania.pmtiles",
+        "groesse": 274251825,
+        "sha256": "28e7b344bc34a9b272310942c4551f5ad154cf603c07cd164a0d2fc9b92d68b8",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "lu",
+        "datei": "luxembourg.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/luxembourg.pmtiles",
+        "groesse": 36264197,
+        "sha256": "b9c623331d5184c46d0e842c781186c680cb368cc6dbbb420d4a17759fd9ba8a",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "mk",
+        "datei": "macedonia.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/macedonia.pmtiles",
+        "groesse": 40465685,
+        "sha256": "af1c0726fbad5af3056e33c909b42c2a4536991a92bf312e8536a6dc33ed225d",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "mt",
+        "datei": "malta.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/malta.pmtiles",
+        "groesse": 6264735,
+        "sha256": "9442fbd2bccebfd081887fa7624b863904d5fe5e45630aa57541e7ff3b735598",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "md",
+        "datei": "moldova.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/moldova.pmtiles",
+        "groesse": 93172399,
+        "sha256": "f1de5fbf70c28bef7444e9bbe659bc917b83d7f0c093df2f5c5b566d37892bf3",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "mc",
+        "datei": "monaco.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/monaco.pmtiles",
+        "groesse": 422869,
+        "sha256": "98739089a806edd7ab8b1f448b5895d239ffee8639f06a3eaf5a5d1ba14003d9",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "me",
+        "datei": "montenegro.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/montenegro.pmtiles",
+        "groesse": 44371921,
+        "sha256": "274073f8fcde35d8a9a479d842ea87816f24d025589cc0a29cec1d414dd3b796",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "nl",
+        "datei": "netherlands.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/netherlands.pmtiles",
+        "groesse": 679928699,
+        "sha256": "52f42a8533c1d1c8aa58f8fa6fe8c181eaafd3eb06b8048080a5b02224203584",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "no",
+        "datei": "norway.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/norway.pmtiles",
+        "groesse": 1805004704,
+        "sha256": "063b937a8c0172de32e46baf7c44294ac9e82f4c73ebf8bcdffef66409b7ff51",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "pl",
+        "datei": "poland.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/poland.pmtiles",
+        "groesse": 1714505229,
+        "sha256": "ce3af44f48d096304e991fc18578fb9e36762610f4690756bab815c0f46d1319",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "pt",
+        "datei": "portugal.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/portugal.pmtiles",
+        "groesse": 361279679,
+        "sha256": "494ae6d07be5136c1f1c05020a168c006a8c4510f4b9fad1aefafb4d79b78d15",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "ro",
+        "datei": "romania.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/romania.pmtiles",
+        "groesse": 455843619,
+        "sha256": "d9e921c599a3fc09ed2231199b6d32db2f93365067e615e3dec3f8acc732b7d2",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "rs",
+        "datei": "serbia.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/serbia.pmtiles",
+        "groesse": 234042478,
+        "sha256": "c507a34a47e959f9c0ae4416d751463a287d22800d56604826c8f746e91597e3",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "sk",
+        "datei": "slovakia.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/slovakia.pmtiles",
+        "groesse": 265380163,
+        "sha256": "eccc72cc3e9c071e1df197e867cd355111762c6913ffafe99f838e107c6011fe",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "si",
+        "datei": "slovenia.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/slovenia.pmtiles",
+        "groesse": 222822757,
+        "sha256": "4ff9dfcccf8a55d49f528e3bada13880143b8386370b1725d32b74300d3bc800",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "es",
+        "datei": "spain.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/spain.pmtiles",
+        "groesse": 1281589304,
+        "sha256": "a68a827616d3f40cf54ecfddf0ff9995a012c58349a177a10e94fad2c03d45dd",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "se",
+        "datei": "sweden.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/sweden.pmtiles",
+        "groesse": 1515074200,
+        "sha256": "1720a1a6d35966cdcf9a4f8a099e8939ec553aef23347615d34384fd23871b85",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "ch",
+        "datei": "switzerland.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/switzerland.pmtiles",
+        "groesse": 350239471,
+        "sha256": "eec19efa9df248838351deb21ba7ab1e951932cbc345c4ece485c6c55c21616d",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "tr",
+        "datei": "turkey.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/turkey.pmtiles",
+        "groesse": 816313590,
+        "sha256": "e2e0e35fe868768a09428ed18079537fd0c95e7a173e3b82d8229d9454cad52d",
+        "stand": "2026-11-17"
+      },
+      {
+        "land": "ua",
+        "datei": "ukraine.pmtiles",
+        "url": "https://karten.gsak-ng.com/karten/2026-11-17/ukraine.pmtiles",
+        "groesse": 1189929315,
+        "sha256": "a5bfd1e646047af8f1d17d25400fd1c1f333ba14ce21df08119e7f87acf8b150",
+        "stand": "2026-11-17"
+      }
     ]
   }
 }
