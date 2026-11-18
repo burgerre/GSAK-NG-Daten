@@ -1,0 +1,84 @@
+# #1332 Kartenkacheln nach Cloudflare R2 hochladen und den Katalogabschnitt «karten» schreiben.
+#
+# Läuft auf dem Build-PC, nicht auf einem GitHub-Läufer: die Dateien (rund 27 GB) liegen dort und kämen sonst gar
+# nicht an den Läufer heran. Nur von Hand startbar – ein Upload dieser Grösse gehört nicht an jeden Push.
+#
+# Voraussetzung: ein selbstgehosteter Läufer für dieses Repository (Labels self-hosted, Linux, gsakng-local) und die
+# vier Secrets R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_ENDPOINT, R2_PUBLIC_BASE.
+name: karten-upload
+
+on:
+  workflow_dispatch:
+    inputs:
+      ordner:
+        description: Ordner mit den .pmtiles auf dem Build-PC
+        default: /home/gsakng/karten-europa/out
+        required: true
+      stand:
+        description: Stand der OSM-Auszüge (JJJJ-MM-TT); wird Teil der Adresse
+        default: "2026-11-17"
+        required: true
+      trockenlauf:
+        description: Nur zeigen, was geschrieben würde (nichts hochladen)
+        type: boolean
+        default: false
+
+concurrency:
+  group: karten-upload
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  hochladen:
+    runs-on: [self-hosted, Linux, gsakng-local]
+    timeout-minutes: 600
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ordner prüfen
+        run: |
+          set -eu
+          test -d "${{ inputs.ordner }}" || { echo "Ordner fehlt: ${{ inputs.ordner }}"; exit 1; }
+          anzahl=$(ls "${{ inputs.ordner }}"/*.pmtiles 2>/dev/null | wc -l)
+          test "$anzahl" -gt 0 || { echo "Keine .pmtiles in ${{ inputs.ordner }}"; exit 1; }
+          echo "$anzahl Dateien, $(du -sh "${{ inputs.ordner }}" | cut -f1)"
+
+      - name: Hochladen und Katalog schreiben
+        env:
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          R2_PUBLIC_BASE: ${{ secrets.R2_PUBLIC_BASE }}
+        run: |
+          python3 -I karten/hochladen.py "${{ inputs.ordner }}" "${{ inputs.stand }}" \
+            ${{ inputs.trockenlauf && '--trockenlauf' || '' }}
+
+      - name: Katalog einchecken
+        if: ${{ !inputs.trockenlauf }}
+        run: |
+          set -eu
+          if git diff --quiet -- katalog.json; then
+            echo "Katalog unverändert"
+            exit 0
+          fi
+          git config user.name "Reto Burger"
+          git config user.email "reto.burger@burger-inf.ch"
+          git add katalog.json
+          git commit -m "Kartenkacheln im Katalog (Stand ${{ inputs.stand }}, #1332)
+
+          Hochgeladen nach Cloudflare R2, eine Datei je Land. Die App findet die Karten damit
+          unter «Offline-Karten» im Abschnitt «Karten (Länder)».
+
+          Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
+          git push
+
+      - name: Eine Adresse gegenprüfen
+        if: ${{ !inputs.trockenlauf }}
+        run: |
+          set -eu
+          url=$(python3 -c "import json;k=json.load(open('katalog.json',encoding='utf-8'));print(k['karten']['dateien'][0]['url'])")
+          code=$(curl -s -o /dev/null -w '%{http_code}' -r 0-1023 "$url")
+          echo "$url → HTTP $code"
+          test "$code" = "206" -o "$code" = "200" || exit 1
