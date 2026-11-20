@@ -25119,6 +25119,7 @@
           "de": "Kanada",
           "en": "Canada"
         },
+        "kontinent": "nordamerika",
         "regionen": [
           "ca-alberta",
           "ca-british-columbia",
@@ -25141,6 +25142,7 @@
           "de": "Grönland",
           "en": "Greenland"
         },
+        "kontinent": "nordamerika",
         "regionen": []
       },
       {
@@ -25149,6 +25151,7 @@
           "de": "Mexiko",
           "en": "Mexico"
         },
+        "kontinent": "nordamerika",
         "regionen": []
       },
       {
@@ -25157,6 +25160,7 @@
           "de": "Vereinigte Staaten",
           "en": "United States"
         },
+        "kontinent": "nordamerika",
         "regionen": [
           "us-alabama",
           "us-alaska",
