@@ -1,13 +1,22 @@
 #!/usr/bin/env bash
-# #1323 Hoehendaten fuer ganz Europa auf dem Build-PC (Alternative zum Workflow hoehen.yml, wenn die Menge fuer CI zu gross ist).
+# #1323 Hoehendaten auf dem Build-PC (Alternative zum Workflow hoehen.yml, wenn die Menge fuer CI zu gross ist).
+# #1216 Je Kontinent aufrufbar, weil «europa» hier fest verdrahtet war:
+#
+#   hoehen/bau-buildpc.sh                # Europa (wie bisher)
+#   hoehen/bau-buildpc.sh nordamerika    # Nordamerika (Tabelle in verbund/gebiete.py)
+#
+# Das Skript laedt NICHTS hoch. Ergebnis: <ZIEL> mit den HGT-Kacheln und hoehen.json fuer den Katalog.
 set -euo pipefail
 REPO=$(cd "$(dirname "$0")/.." && pwd)
-ZIEL=${ZIEL:-$HOME/hoehen-europa-release}
-WORK=$HOME/hoehen-europa
+VERBUND=${1:-${VERBUND:-europa}}
+export VERBUND            # gebiete.py waehlt damit die Tabelle des Kontinents
+ZIEL=${ZIEL:-$HOME/hoehen-$VERBUND-release}
+WORK=${ARBEIT:-$HOME/hoehen-$VERBUND}
 GDAL=ghcr.io/osgeo/gdal:ubuntu-small-3.9.2
 STAND=$(date -u +%F)
 TAG="hoehen-glo90-3s-$STAND"
-unset VERBUND_GEBIETE   # leer = alle 49 europaeischen Gebiete
+unset VERBUND_GEBIETE   # leer = alle Gebiete des Kontinents
+echo "$(date -Is) Hoehendaten fuer $VERBUND, Arbeitsordner $WORK, Ziel $ZIEL"
 
 mkdir -p "$WORK/poly" "$WORK/dem" "$WORK/out"
 cd "$REPO"
