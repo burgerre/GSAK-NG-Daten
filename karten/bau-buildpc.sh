@@ -51,6 +51,11 @@ ls -S -r "$PBF"/*.osm.pbf | while read -r q; do
     mb=$(( $(stat -c%s "$ziel") / 1048576 ))
     printf '%s\t%d\t%d\t%d\n' "$name" "$pbfmb" "$mb" "$min" >> "$MASS"
     echo "$(date -Is) $name fertig: $mb MB in $min min"
+    # Kleiner Auszug, grosse Karte? Dann fehlt im Auszug die Bounding Box und planetiler hat die ganze Welt gezeichnet.
+    if [ "$pbfmb" -lt 5 ] && [ "$mb" -gt 50 ]; then
+      echo "$(date -Is) ACHTUNG $name: $mb MB aus $pbfmb MB Auszug - fehlt die Bounding Box im Kopf (osmium extract --set-bounds)?"
+      osmium fileinfo "$q" 2>/dev/null | grep -A2 -i "bounding box" | head -3
+    fi
   else
     printf '%s\t%d\tFEHLER(rc=%d)\t%d\n' "$name" "$pbfmb" "$rc" "$min" >> "$MASS"
     echo "$(date -Is) $name FEHLER rc=$rc nach $min min"; tail -5 "$WORK/$name.log"

@@ -46,8 +46,11 @@ for nr in range(0, len(offen), je_block):
     with io.open(cfg_pfad, "w", encoding="utf-8") as f:
         json.dump(cfg, f, ensure_ascii=False, indent=2)
     print("== Block %d: %s" % (nr // je_block + 1, ", ".join(gid for gid, _ in block)), flush=True)
+    # --set-bounds ist nicht Kosmetik: ohne Bounding Box im Kopf der Datei nimmt planetiler die ganze Welt an und packt die
+    # globalen Zusatzdaten (Natural Earth, Wasserflächen) in jede Karte. Gemessen: 681 MB für die Amerikanischen
+    # Jungferninseln statt weniger MB. Die Geofabrik-Auszüge bringen die Box mit, selbst geschnittene nicht.
     rc = subprocess.call(["osmium", "extract", "-c", cfg_pfad, "-d", ziel_dir, "-s", "simple",
-                          "--overwrite", "--no-progress", gesamt])
+                          "--set-bounds", "--overwrite", "--no-progress", gesamt])
     if rc != 0:
         print("osmium rc=%d – Block abgebrochen" % rc)
         raise SystemExit(rc)
