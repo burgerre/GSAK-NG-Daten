@@ -21,24 +21,14 @@ WORK=${ARBEIT:-$HOME/karten-$VERBUND}
 IMG=ghcr.io/onthegomap/planetiler:latest
 mkdir -p "$WORK/out" "$PBF"
 
-# Fehlen die Gebietsauszuege, aus dem Gesamtauszug schneiden (osmium, ein Durchgang je Gebiet)
+# Fehlen die Gebietsauszuege, aus dem Gesamtauszug schneiden (osmium, ein Durchgang je Block von Gebieten)
 if [ "$(ls "$PBF"/*.osm.pbf 2>/dev/null | wc -l)" -eq 0 ]; then
   if [ ! -s "$GESAMT" ]; then
     echo "Weder Gebietsauszuege in $PBF noch Gesamtauszug $GESAMT - erst den Routing-Verbund bauen."; exit 1
   fi
   echo "$(date -Is) == Gebietsauszuege aus $(du -h "$GESAMT" | cut -f1) schneiden =="
-  python3 "$REPO/verbund/gebiete.py" --list | while IFS=$'\t' read -r id poly; do
-    ziel="$PBF/$id.osm.pbf"
-    [ -s "$ziel" ] && continue
-    datei="$POLY/$id.poly"
-    if [ ! -s "$datei" ]; then
-      mkdir -p "$POLY"
-      curl -fsSL --retry 5 --retry-delay 3 -o "$datei" "https://download.geofabrik.de/${poly}.poly" || { echo "Polygon fehlt: $id"; continue; }
-    fi
-    echo "$(date -Is) schneide $id"
-    osmium extract -p "$datei" -s simple -o "$ziel.teil" --overwrite "$GESAMT" \
-      && mv "$ziel.teil" "$ziel" || echo "$(date -Is) $id FEHLER beim Schneiden"
-  done
+  # Ein osmium-Durchgang je Block (Standard 20 Gebiete): die Gesamtdatei wird so vier- statt 68-mal gelesen.
+  python3 -I "$REPO/karten/gebietsauszuege.py" "$GESAMT" "$POLY" "$PBF" || { echo "Schneiden fehlgeschlagen"; exit 1; }
   echo "$(date -Is) Auszuege: $(ls "$PBF"/*.osm.pbf 2>/dev/null | wc -l)"
 fi
 MASS=$WORK/groessen.tsv
