@@ -71,6 +71,7 @@
           "de": "Albanien",
           "en": "Albania"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -79,6 +80,7 @@
           "de": "Andorra",
           "en": "Andorra"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -87,6 +89,7 @@
           "de": "Österreich",
           "en": "Austria"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -95,6 +98,7 @@
           "de": "Azoren",
           "en": "Azores"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -103,6 +107,7 @@
           "de": "Belarus",
           "en": "Belarus"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -111,6 +116,7 @@
           "de": "Belgien",
           "en": "Belgium"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -119,6 +125,7 @@
           "de": "Bosnien und Herzegowina",
           "en": "Bosnia-Herzegovina"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -127,6 +134,7 @@
           "de": "Bulgarien",
           "en": "Bulgaria"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -135,6 +143,7 @@
           "de": "Kroatien",
           "en": "Croatia"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -143,6 +152,7 @@
           "de": "Zypern",
           "en": "Cyprus"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -151,6 +161,7 @@
           "de": "Tschechien",
           "en": "Czech Republic"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -159,6 +170,7 @@
           "de": "Dänemark",
           "en": "Denmark"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -167,6 +179,7 @@
           "de": "Estland",
           "en": "Estonia"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -175,6 +188,7 @@
           "de": "Färöer",
           "en": "Faroe Islands"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -183,6 +197,7 @@
           "de": "Finnland",
           "en": "Finland"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -191,6 +206,7 @@
           "de": "Frankreich",
           "en": "France"
         },
+        "kontinent": "europa",
         "regionen": [
           "fr-alsace",
           "fr-aquitaine",
@@ -222,6 +238,7 @@
           "de": "Georgien",
           "en": "Georgia"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -230,6 +247,7 @@
           "de": "Deutschland",
           "en": "Germany"
         },
+        "kontinent": "europa",
         "regionen": [
           "de-baden-wuerttemberg",
           "de-bayern",
@@ -255,6 +273,7 @@
           "de": "Grossbritannien",
           "en": "Great Britain"
         },
+        "kontinent": "europa",
         "regionen": [
           "gb-england",
           "gb-scotland",
@@ -267,6 +286,7 @@
           "de": "Griechenland",
           "en": "Greece"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -275,6 +295,7 @@
           "de": "Guernsey und Jersey",
           "en": "Guernsey and Jersey"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -283,6 +304,7 @@
           "de": "Ungarn",
           "en": "Hungary"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -291,6 +313,7 @@
           "de": "Island",
           "en": "Iceland"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -299,6 +322,7 @@
           "de": "Irland und Nordirland",
           "en": "Ireland and Northern Ireland"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -307,6 +331,7 @@
           "de": "Isle of Man",
           "en": "Isle of Man"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -315,6 +340,7 @@
           "de": "Italien",
           "en": "Italy"
         },
+        "kontinent": "europa",
         "regionen": [
           "it-centro",
           "it-isole",
@@ -329,6 +355,7 @@
           "de": "Kosovo",
           "en": "Kosovo"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -337,6 +364,7 @@
           "de": "Lettland",
           "en": "Latvia"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -345,6 +373,7 @@
           "de": "Liechtenstein",
           "en": "Liechtenstein"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -353,6 +382,7 @@
           "de": "Litauen",
           "en": "Lithuania"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -361,6 +391,7 @@
           "de": "Luxemburg",
           "en": "Luxembourg"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -369,6 +400,7 @@
           "de": "Nordmazedonien",
           "en": "Macedonia"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -377,6 +409,7 @@
           "de": "Malta",
           "en": "Malta"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -385,6 +418,7 @@
           "de": "Moldau",
           "en": "Moldova"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -393,6 +427,7 @@
           "de": "Monaco",
           "en": "Monaco"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -401,6 +436,7 @@
           "de": "Montenegro",
           "en": "Montenegro"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -409,6 +445,7 @@
           "de": "Niederlande",
           "en": "Netherlands"
         },
+        "kontinent": "europa",
         "regionen": [
           "nl-drenthe",
           "nl-flevoland",
@@ -430,6 +467,7 @@
           "de": "Norwegen",
           "en": "Norway"
         },
+        "kontinent": "europa",
         "regionen": [
           "no-nord-norge",
           "no-ostlandet",
@@ -445,6 +483,7 @@
           "de": "Polen",
           "en": "Poland"
         },
+        "kontinent": "europa",
         "regionen": [
           "pl-dolnoslaskie",
           "pl-kujawsko-pomorskie",
@@ -470,6 +509,7 @@
           "de": "Portugal",
           "en": "Portugal"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -478,6 +518,7 @@
           "de": "Rumänien",
           "en": "Romania"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -486,6 +527,7 @@
           "de": "Serbien",
           "en": "Serbia"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -494,6 +536,7 @@
           "de": "Slowakei",
           "en": "Slovakia"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -502,6 +545,7 @@
           "de": "Slowenien",
           "en": "Slovenia"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -510,6 +554,7 @@
           "de": "Spanien",
           "en": "Spain"
         },
+        "kontinent": "europa",
         "regionen": [
           "es-andalucia",
           "es-aragon",
@@ -537,6 +582,7 @@
           "de": "Schweden",
           "en": "Sweden"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -545,6 +591,7 @@
           "de": "Schweiz",
           "en": "Switzerland"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -553,6 +600,7 @@
           "de": "Türkei",
           "en": "Turkey"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -561,6 +609,7 @@
           "de": "Ukraine",
           "en": "Ukraine (with Crimea)"
         },
+        "kontinent": "europa",
         "regionen": []
       }
     ],
@@ -24523,6 +24572,7 @@
           "de": "Albanien",
           "en": "Albania"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24531,6 +24581,7 @@
           "de": "Andorra",
           "en": "Andorra"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24539,6 +24590,7 @@
           "de": "Österreich",
           "en": "Austria"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24547,6 +24599,7 @@
           "de": "Azoren",
           "en": "Azores"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24555,6 +24608,7 @@
           "de": "Belarus",
           "en": "Belarus"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24563,6 +24617,7 @@
           "de": "Belgien",
           "en": "Belgium"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24571,6 +24626,7 @@
           "de": "Bosnien und Herzegowina",
           "en": "Bosnia-Herzegovina"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24579,6 +24635,7 @@
           "de": "Bulgarien",
           "en": "Bulgaria"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24587,6 +24644,7 @@
           "de": "Kroatien",
           "en": "Croatia"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24595,6 +24653,7 @@
           "de": "Zypern",
           "en": "Cyprus"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24603,6 +24662,7 @@
           "de": "Tschechien",
           "en": "Czech Republic"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24611,6 +24671,7 @@
           "de": "Dänemark",
           "en": "Denmark"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24619,6 +24680,7 @@
           "de": "Estland",
           "en": "Estonia"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24627,6 +24689,7 @@
           "de": "Färöer",
           "en": "Faroe Islands"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24635,6 +24698,7 @@
           "de": "Finnland",
           "en": "Finland"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24643,6 +24707,7 @@
           "de": "Frankreich",
           "en": "France"
         },
+        "kontinent": "europa",
         "regionen": [
           "fr-alsace",
           "fr-aquitaine",
@@ -24674,6 +24739,7 @@
           "de": "Georgien",
           "en": "Georgia"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24682,6 +24748,7 @@
           "de": "Deutschland",
           "en": "Germany"
         },
+        "kontinent": "europa",
         "regionen": [
           "de-baden-wuerttemberg",
           "de-bayern",
@@ -24707,6 +24774,7 @@
           "de": "Grossbritannien",
           "en": "Great Britain"
         },
+        "kontinent": "europa",
         "regionen": [
           "gb-england",
           "gb-scotland",
@@ -24719,6 +24787,7 @@
           "de": "Griechenland",
           "en": "Greece"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24727,6 +24796,7 @@
           "de": "Guernsey und Jersey",
           "en": "Guernsey and Jersey"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24735,6 +24805,7 @@
           "de": "Ungarn",
           "en": "Hungary"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24743,6 +24814,7 @@
           "de": "Island",
           "en": "Iceland"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24751,6 +24823,7 @@
           "de": "Irland und Nordirland",
           "en": "Ireland and Northern Ireland"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24759,6 +24832,7 @@
           "de": "Isle of Man",
           "en": "Isle of Man"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24767,6 +24841,7 @@
           "de": "Italien",
           "en": "Italy"
         },
+        "kontinent": "europa",
         "regionen": [
           "it-centro",
           "it-isole",
@@ -24781,6 +24856,7 @@
           "de": "Kosovo",
           "en": "Kosovo"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24789,6 +24865,7 @@
           "de": "Lettland",
           "en": "Latvia"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24797,6 +24874,7 @@
           "de": "Liechtenstein",
           "en": "Liechtenstein"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24805,6 +24883,7 @@
           "de": "Litauen",
           "en": "Lithuania"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24813,6 +24892,7 @@
           "de": "Luxemburg",
           "en": "Luxembourg"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24821,6 +24901,7 @@
           "de": "Nordmazedonien",
           "en": "Macedonia"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24829,6 +24910,7 @@
           "de": "Malta",
           "en": "Malta"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24837,6 +24919,7 @@
           "de": "Moldau",
           "en": "Moldova"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24845,6 +24928,7 @@
           "de": "Monaco",
           "en": "Monaco"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24853,6 +24937,7 @@
           "de": "Montenegro",
           "en": "Montenegro"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24861,6 +24946,7 @@
           "de": "Niederlande",
           "en": "Netherlands"
         },
+        "kontinent": "europa",
         "regionen": [
           "nl-drenthe",
           "nl-flevoland",
@@ -24882,6 +24968,7 @@
           "de": "Norwegen",
           "en": "Norway"
         },
+        "kontinent": "europa",
         "regionen": [
           "no-nord-norge",
           "no-ostlandet",
@@ -24897,6 +24984,7 @@
           "de": "Polen",
           "en": "Poland"
         },
+        "kontinent": "europa",
         "regionen": [
           "pl-dolnoslaskie",
           "pl-kujawsko-pomorskie",
@@ -24922,6 +25010,7 @@
           "de": "Portugal",
           "en": "Portugal"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24930,6 +25019,7 @@
           "de": "Rumänien",
           "en": "Romania"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24938,6 +25028,7 @@
           "de": "Serbien",
           "en": "Serbia"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24946,6 +25037,7 @@
           "de": "Slowakei",
           "en": "Slovakia"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24954,6 +25046,7 @@
           "de": "Slowenien",
           "en": "Slovenia"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24962,6 +25055,7 @@
           "de": "Spanien",
           "en": "Spain"
         },
+        "kontinent": "europa",
         "regionen": [
           "es-andalucia",
           "es-aragon",
@@ -24989,6 +25083,7 @@
           "de": "Schweden",
           "en": "Sweden"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -24997,6 +25092,7 @@
           "de": "Schweiz",
           "en": "Switzerland"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -25005,6 +25101,7 @@
           "de": "Türkei",
           "en": "Turkey"
         },
+        "kontinent": "europa",
         "regionen": []
       },
       {
@@ -25013,6 +25110,7 @@
           "de": "Ukraine",
           "en": "Ukraine (with Crimea)"
         },
+        "kontinent": "europa",
         "regionen": []
       }
     ],
@@ -38202,343 +38300,392 @@
         "name": {
           "de": "Albanien",
           "en": "Albania"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "ad",
         "name": {
           "de": "Andorra",
           "en": "Andorra"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "at",
         "name": {
           "de": "Österreich",
           "en": "Austria"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "azoren",
         "name": {
           "de": "Azoren",
           "en": "Azores"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "by",
         "name": {
           "de": "Belarus",
           "en": "Belarus"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "be",
         "name": {
           "de": "Belgien",
           "en": "Belgium"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "ba",
         "name": {
           "de": "Bosnien und Herzegowina",
           "en": "Bosnia-Herzegovina"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "bg",
         "name": {
           "de": "Bulgarien",
           "en": "Bulgaria"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "hr",
         "name": {
           "de": "Kroatien",
           "en": "Croatia"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "cy",
         "name": {
           "de": "Zypern",
           "en": "Cyprus"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "cz",
         "name": {
           "de": "Tschechien",
           "en": "Czech Republic"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "dk",
         "name": {
           "de": "Dänemark",
           "en": "Denmark"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "ee",
         "name": {
           "de": "Estland",
           "en": "Estonia"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "fo",
         "name": {
           "de": "Färöer",
           "en": "Faroe Islands"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "fi",
         "name": {
           "de": "Finnland",
           "en": "Finland"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "fr",
         "name": {
           "de": "Frankreich",
           "en": "France"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "ge",
         "name": {
           "de": "Georgien",
           "en": "Georgia"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "de",
         "name": {
           "de": "Deutschland",
           "en": "Germany"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "gb",
         "name": {
           "de": "Grossbritannien",
           "en": "Great Britain"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "gr",
         "name": {
           "de": "Griechenland",
           "en": "Greece"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "gg",
         "name": {
           "de": "Guernsey und Jersey",
           "en": "Guernsey and Jersey"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "hu",
         "name": {
           "de": "Ungarn",
           "en": "Hungary"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "is",
         "name": {
           "de": "Island",
           "en": "Iceland"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "ie",
         "name": {
           "de": "Irland und Nordirland",
           "en": "Ireland and Northern Ireland"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "im",
         "name": {
           "de": "Isle of Man",
           "en": "Isle of Man"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "it",
         "name": {
           "de": "Italien",
           "en": "Italy"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "xk",
         "name": {
           "de": "Kosovo",
           "en": "Kosovo"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "lv",
         "name": {
           "de": "Lettland",
           "en": "Latvia"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "li",
         "name": {
           "de": "Liechtenstein",
           "en": "Liechtenstein"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "lt",
         "name": {
           "de": "Litauen",
           "en": "Lithuania"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "lu",
         "name": {
           "de": "Luxemburg",
           "en": "Luxembourg"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "mk",
         "name": {
           "de": "Nordmazedonien",
           "en": "Macedonia"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "mt",
         "name": {
           "de": "Malta",
           "en": "Malta"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "md",
         "name": {
           "de": "Moldau",
           "en": "Moldova"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "mc",
         "name": {
           "de": "Monaco",
           "en": "Monaco"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "me",
         "name": {
           "de": "Montenegro",
           "en": "Montenegro"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "nl",
         "name": {
           "de": "Niederlande",
           "en": "Netherlands"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "no",
         "name": {
           "de": "Norwegen",
           "en": "Norway"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "pl",
         "name": {
           "de": "Polen",
           "en": "Poland"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "pt",
         "name": {
           "de": "Portugal",
           "en": "Portugal"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "ro",
         "name": {
           "de": "Rumänien",
           "en": "Romania"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "rs",
         "name": {
           "de": "Serbien",
           "en": "Serbia"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "sk",
         "name": {
           "de": "Slowakei",
           "en": "Slovakia"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "si",
         "name": {
           "de": "Slowenien",
           "en": "Slovenia"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "es",
         "name": {
           "de": "Spanien",
           "en": "Spain"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "se",
         "name": {
           "de": "Schweden",
           "en": "Sweden"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "ch",
         "name": {
           "de": "Schweiz",
           "en": "Switzerland"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "tr",
         "name": {
           "de": "Türkei",
           "en": "Turkey"
-        }
+        },
+        "kontinent": "europa"
       },
       {
         "id": "ua",
         "name": {
           "de": "Ukraine",
           "en": "Ukraine (with Crimea)"
-        }
+        },
+        "kontinent": "europa"
       }
     ],
     "dateien": [
