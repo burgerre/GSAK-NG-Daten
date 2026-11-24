@@ -1,7 +1,12 @@
 """#1332 Kartenkacheln nach Cloudflare R2 hochladen und den Katalogabschnitt «karten» schreiben.
 
+#1386 Mehrere Kontinente: Die Zuordnung läuft über `gebiete.gebiete()` (mit Regionen), und der Abschnitt «karten» wird **ergänzt**
+statt ersetzt – ein Lauf mit dem Nordamerika-Ordner lässt Europa im Katalog stehen.
+
 Aufruf:
-    python3 -I karten/hochladen.py <ordner-mit-pmtiles> <stand-jjjj-mm-tt> [--katalog katalog.json] [--trockenlauf]
+    VERBUND=nordamerika python3 -I karten/hochladen.py <ordner-mit-pmtiles> <stand-jjjj-mm-tt> [--trockenlauf]
+
+`VERBUND` wählt die Gebietstabelle (Standard `europa`), wie beim Verbundbau.
 
 Umgebung (aus GitHub-Secrets des Repositorys burgerre/GSAK-NG-Daten):
     R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_ENDPOINT, R2_PUBLIC_BASE
@@ -190,19 +195,56 @@ def sha256_datei(pfad):
     return h.hexdigest()
 
 
-LAENDER = {}   # wird aus verbund/gebiete.py gefüllt: Dateiname → (id, de, en)
+# #1386 Eine Karte unter dieser Grösse ist leer: planetiler schreibt auch ohne Daten einen Kopf. Puerto Rico und die Amerikanischen
+# Jungferninseln fehlen im Geofabrik-Kontinentauszug «north-america» und ergaben 0 MB (siehe #1385) – solche Dateien gehören nicht in den
+# Katalog, sonst steht da ein Land, dessen Karte nichts zeigt.
+MIN_KARTE = 64 * 1024
 
 
-def laender_tabelle():
-    """Deutsche und englische Ländernamen aus derselben Quelle wie Routing und Höhen."""
+def gebiete_tabelle():
+    """
+    #1386 Dateiname → Gebiet (id, land, Name de/en, typ) aus derselben Quelle wie Routing und Höhen.
+
+    Die Zuordnung läuft über `gebiete.gebiete()` statt über die Ländertabelle, damit **Regionen** mitkommen: Die USA und Kanada werden je
+    Region geschnitten (`us-california`, `ca-quebec`), weil eine Datei je Land rund 10 GB wäre. Als Schlüssel gelten beide Schreibweisen,
+    die vorkommen: die Gebiets-Id (`us-california.pmtiles`, Nordamerika) und der letzte Teil des Geofabrik-Pfads
+    (`switzerland.pmtiles`, Europa).
+    """
     hier = os.path.dirname(os.path.abspath(__file__))
     sys.path.insert(0, os.path.join(os.path.dirname(hier), "verbund"))
     import gebiete                                     # noqa: PLC0415 – erst hier, der Pfad steht vorher nicht
     tabelle = {}
-    for land, poly, de, en in gebiete.tabellen()[0]:
-        datei = poly.split("/")[-1]                    # «europe/switzerland» → «switzerland»
-        tabelle[datei] = (land, de, en)
-    return tabelle
+    for g in gebiete.gebiete():
+        eintrag = (g["id"], g["land"], g["name"]["de"], g["name"]["en"], g["typ"])
+        tabelle.setdefault(g["id"], eintrag)
+        tabelle.setdefault(g["poly"].split("/")[-1], eintrag)
+    return tabelle, {l["id"]: l for l in gebiete.laender()}
+
+
+def abschnitt_zusammenfuehren(alt, neu):
+    """
+    #1386 Den Abschnitt «karten» **ergänzen** statt ersetzen: Einträge gleicher id (bzw. gleichen Dateinamens) werden ersetzt, fremde
+    bleiben. Sonst verschwände mit dem Nordamerika-Ordner Europa aus dem Katalog – die Dateien lägen weiter auf R2, die App zeigte sie
+    nicht mehr.
+    """
+    if not isinstance(alt, dict) or alt.get("format") != neu["format"] or alt.get("schema") != neu["schema"]:
+        return neu                                     # anderes Format: lieber neu schreiben als mischen
+
+    def schluessel(e):
+        return (e.get("id") or e.get("land") or "") + "|" + (e.get("datei") or "")
+
+    ergebnis = dict(alt)
+    neue_dateien = {schluessel(e): e for e in neu["dateien"]}
+    dateien = [e for e in alt.get("dateien", []) if schluessel(e) not in neue_dateien]
+    dateien += neu["dateien"]
+    neue_laender = {l["id"] for l in neu["laender"]}
+    laender = [l for l in alt.get("laender", []) if l.get("id") not in neue_laender] + neu["laender"]
+    ergebnis.update({k: v for k, v in neu.items() if k not in ("laender", "dateien", "stand")})
+    ergebnis["laender"] = laender
+    ergebnis["dateien"] = dateien
+    # Der Stand des Abschnitts ist der neueste; je Datei steht der eigene Stand ohnehin daneben.
+    ergebnis["stand"] = max(alt.get("stand", ""), neu["stand"])
+    return ergebnis
 
 
 def main():
@@ -219,7 +261,7 @@ def main():
     bucket = os.environ.get("R2_BUCKET", "gsak-ng-karten")
     r2 = R2(endpoint, bucket, os.environ["R2_ACCESS_KEY_ID"], os.environ["R2_SECRET_ACCESS_KEY"])
 
-    tabelle = laender_tabelle()
+    tabelle, laender_tabelle = gebiete_tabelle()
     dateien = sorted(f for f in os.listdir(ordner) if f.endswith(".pmtiles"))
     if not dateien:
         raise SystemExit(f"Keine .pmtiles in {ordner}")
@@ -234,9 +276,13 @@ def main():
         pfad = os.path.join(ordner, datei)
         groesse = os.path.getsize(pfad)
         name = datei[:-len(".pmtiles")]
-        land = tabelle.get(name)
-        if land is None:
-            print(f"[{i}/{len(dateien)}] {datei}: kein Land bekannt – übersprungen", flush=True)
+        gebiet = tabelle.get(name)
+        if gebiet is None:
+            print(f"[{i}/{len(dateien)}] {datei}: kein Gebiet bekannt – übersprungen", flush=True)
+            continue
+        if groesse < MIN_KARTE:
+            # #1386 Leere Karte (kein Auszug im Kontinent-PBF): nicht hochladen und nicht in den Katalog
+            print(f"[{i}/{len(dateien)}] {datei}: leer ({groesse} B) – übersprungen", flush=True)
             continue
         key = f"karten/{stand}/{datei}"
         url = f"{basis}/{key}"
@@ -261,10 +307,17 @@ def main():
                       f"({groesse * 8 / dauer / 1e6:.0f} Mbit/s)   ", flush=True)
                 hochgeladen += groesse
 
-        kennung, de, en = land
-        laender.append({"id": kennung, "name": {"de": de, "en": en}})
+        gid, kennung, de, en, typ = gebiet
+        if kennung not in {l["id"] for l in laender}:
+            aus_tabelle = laender_tabelle.get(kennung, {})
+            laender.append({
+                "id": kennung,
+                "name": aus_tabelle.get("name", {"de": de, "en": en}),
+                # #1386 Regionen wie beim Routing; bei kleinen Ländern bleibt die Liste leer
+                "regionen": list(aus_tabelle.get("regionen", [])),
+            })
         eintraege.append({
-            "land": kennung, "datei": datei, "url": url,
+            "id": gid, "land": kennung, "name": {"de": de, "en": en}, "datei": datei, "url": url,
             "groesse": groesse, "sha256": sha256_datei(pfad), "stand": stand,
         })
 
@@ -288,13 +341,14 @@ def main():
     with open(katalog_pfad, encoding="utf-8") as f:
         katalog = json.load(f)
     katalog["aktualisiert"] = jetzt().strftime("%Y-%m-%dT%H:%M:%SZ")
-    katalog["karten"] = abschnitt
+    # #1386 ergänzen, nicht ersetzen
+    katalog["karten"] = abschnitt_zusammenfuehren(katalog.get("karten"), abschnitt)
     with open(katalog_pfad, "w", encoding="utf-8", newline="\n") as f:
         json.dump(katalog, f, ensure_ascii=False, indent=2)
         f.write("\n")
 
     dauer = time.time() - begonnen
-    print(f"Fertig: {len(eintraege)} Länder im Katalog, {hochgeladen / 1e9:.1f} GB neu hochgeladen, "
+    print(f"Fertig: {len(eintraege)} Gebiete in {len(laender)} Ländern im Katalog, {hochgeladen / 1e9:.1f} GB neu hochgeladen, "
           f"{dauer / 60:.0f} min", flush=True)
 
 
