@@ -113,5 +113,50 @@ class LeereKarten(unittest.TestCase):
         self.assertGreater(hochladen.MIN_KARTE, 0)
 
 
+class GebieteOhneDaten(unittest.TestCase):
+    """
+    #1386 Gebiete, die im Kontinentauszug fehlen, duerfen nicht in den Katalog - und sind an der Groesse nicht erkennbar.
+
+    Am 25.11.2026 stand Puerto Rico (442 KB, leer) im geschriebenen Katalog, waehrend Monaco (410 KB) eine richtige Karte ist.
+    Eine Schwelle, die Puerto Rico faengt, haette Monaco aus dem Katalog geworfen.
+    """
+
+    def test_bekannte_gebiete_sind_benannt(self):
+        self.assertIn("us-puerto-rico", hochladen.OHNE_DATEN)
+        self.assertIn("us-us-virgin-islands", hochladen.OHNE_DATEN)
+        for grund in hochladen.OHNE_DATEN.values():
+            self.assertIn("#1555", grund)          # die Folgeaufgabe, die den eigenen Auszug baut
+
+    def test_schwelle_wirft_monaco_nicht_weg(self):
+        monaco = 410 * 1024                        # gemessen im Katalog vom 17.11.2026
+        puerto_rico = 442 * 1024                   # leer, aber groesser als Monaco
+        self.assertLess(hochladen.MIN_KARTE, monaco)
+        self.assertLess(monaco, puerto_rico)       # darum entscheidet Wissen, nicht die Groesse
+
+    def test_regionen_ohne_daten_stehen_nicht_im_land(self):
+        for k in ("VERBUND", "VERBUND_GEBIETE"):
+            os.environ.pop(k, None)
+        _, laender = hochladen.gebiete_tabelle()
+        # Die Gebietstabelle fuehrt sie weiter (das Routing braucht sie), der Katalog darf sie nicht nennen.
+        self.assertIn("us-puerto-rico", laender["us"]["regionen"])
+        gefiltert = [r for r in laender["us"]["regionen"] if r not in hochladen.OHNE_DATEN]
+        self.assertNotIn("us-puerto-rico", gefiltert)
+        self.assertNotIn("us-us-virgin-islands", gefiltert)
+        self.assertEqual(51, len(gefiltert))       # 53 Gebiete der Tabelle minus die zwei ohne Daten
+
+
+class KontinentImKatalog(unittest.TestCase):
+    """#1386 Der Kontinent gehoert je Land in den Katalog, sonst landen neue Gebiete in der App unter "Weitere Gebiete"."""
+
+    def test_jedes_land_nennt_seinen_kontinent(self):
+        for k in ("VERBUND", "VERBUND_GEBIETE"):
+            os.environ.pop(k, None)
+        _, laender = hochladen.gebiete_tabelle()
+        self.assertEqual("europa", laender["ch"]["kontinent"])
+        self.assertEqual("nordamerika", laender["us"]["kontinent"])
+        self.assertEqual("nordamerika", laender["mx"]["kontinent"])
+        self.assertTrue(all(l.get("kontinent") for l in laender.values()))
+
+
 if __name__ == "__main__":
     unittest.main()
