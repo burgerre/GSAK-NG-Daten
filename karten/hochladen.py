@@ -195,10 +195,20 @@ def sha256_datei(pfad):
     return h.hexdigest()
 
 
-# #1386 Eine Karte unter dieser Grösse ist leer: planetiler schreibt auch ohne Daten einen Kopf. Puerto Rico und die Amerikanischen
-# Jungferninseln fehlen im Geofabrik-Kontinentauszug «north-america» und ergaben 0 MB (siehe #1385) – solche Dateien gehören nicht in den
-# Katalog, sonst steht da ein Land, dessen Karte nichts zeigt.
+# #1386 Eine Karte unter dieser Grösse enthält nichts: planetiler schreibt auch ohne Daten einen Kopf.
+#
+# Die Grösse **allein** reicht als Erkennung nicht, und zwar grundsätzlich nicht: Monaco ist mit 410 KB eine richtige, nützliche Karte,
+# Puerto Rico mit 442 KB eine leere – die leere ist grösser. Eine Schwelle, die Puerto Rico fängt, würde Monaco aus dem Katalog werfen,
+# also eine Karte entfernen, die seit dem 17.11.2026 funktioniert. Darum fängt die Schwelle nur die wirklich leeren Dateien ab.
 MIN_KARTE = 64 * 1024
+
+# #1386 Gebiete, die im Kontinentauszug von Geofabrik nicht (oder praktisch leer) enthalten sind. Sie brauchen einen eigenen Auszug und
+# gehören bis dahin in keinen Katalog, sonst steht dort ein Gebiet, dessen Karte nichts zeigt. Siehe #1385 und die Folgeaufgabe #1555;
+# beim Bau aus einem eigenen Auszug ist der Eintrag hier zu entfernen.
+OHNE_DATEN = {
+    "us-puerto-rico": "fehlt im Auszug north-america (#1555)",
+    "us-us-virgin-islands": "fehlt im Auszug north-america (#1555)",
+}
 
 
 def gebiete_tabelle():
@@ -229,7 +239,10 @@ def gebiete_tabelle():
                 tabelle.setdefault(g["id"], eintrag)
                 tabelle.setdefault(g["poly"].split("/")[-1], eintrag)
             for l in gebiete.laender():
-                laender_tabelle.setdefault(l["id"], l)
+                # #1386 Der Kontinent gehört in den Katalog, damit die App neue Gebiete ohne Programmänderung richtig einsortiert.
+                # Ohne das Feld landen Kanada, Grönland, Mexiko und die USA in der App unter «Weitere Gebiete», sobald ein Stand die
+                # eingebaute Rückfalltabelle nicht kennt.
+                laender_tabelle.setdefault(l["id"], dict(l, kontinent=kontinent))
     finally:
         for k, v in vorher.items():
             if v is None:
@@ -302,6 +315,10 @@ def main():
             # #1386 Leere Karte (kein Auszug im Kontinent-PBF): nicht hochladen und nicht in den Katalog
             print(f"[{i}/{len(dateien)}] {datei}: leer ({groesse} B) – übersprungen", flush=True)
             continue
+        if name in OHNE_DATEN:
+            # #1386 Bekanntes Gebiet ohne Daten im Kontinentauszug. Nicht an der Grösse erkennbar – Monaco ist kleiner (siehe OHNE_DATEN).
+            print(f"[{i}/{len(dateien)}] {datei}: {OHNE_DATEN[name]} – übersprungen", flush=True)
+            continue
         key = f"karten/{stand}/{datei}"
         url = f"{basis}/{key}"
 
@@ -328,12 +345,16 @@ def main():
         gid, kennung, de, en, typ = gebiet
         if kennung not in {l["id"] for l in laender}:
             aus_tabelle = laender_tabelle.get(kennung, {})
-            laender.append({
+            eintrag_land = {
                 "id": kennung,
                 "name": aus_tabelle.get("name", {"de": de, "en": en}),
-                # #1386 Regionen wie beim Routing; bei kleinen Ländern bleibt die Liste leer
-                "regionen": list(aus_tabelle.get("regionen", [])),
-            })
+                # #1386 Regionen wie beim Routing; bei kleinen Ländern bleibt die Liste leer. Gebiete aus OHNE_DATEN gehören nicht in die
+                # Liste – sonst nennt der Katalog eine Region, zu der es keine Datei gibt (der Vorwurf aus #1385).
+                "regionen": [r for r in aus_tabelle.get("regionen", []) if r not in OHNE_DATEN],
+            }
+            if aus_tabelle.get("kontinent"):
+                eintrag_land["kontinent"] = aus_tabelle["kontinent"]
+            laender.append(eintrag_land)
         eintraege.append({
             "id": gid, "land": kennung, "name": {"de": de, "en": en}, "datei": datei, "url": url,
             "groesse": groesse, "sha256": sha256_datei(pfad), "stand": stand,
