@@ -209,16 +209,34 @@ def gebiete_tabelle():
     Region geschnitten (`us-california`, `ca-quebec`), weil eine Datei je Land rund 10 GB wäre. Als Schlüssel gelten beide Schreibweisen,
     die vorkommen: die Gebiets-Id (`us-california.pmtiles`, Nordamerika) und der letzte Teil des Geofabrik-Pfads
     (`switzerland.pmtiles`, Europa).
+
+    Gelesen werden **alle** Kontinente, nicht nur der aus `VERBUND`. `gebiete.gebiete()` liefert sonst die Tabellen dieser einen
+    Umgebungsvariablen (Standard «europa»), und ein Lauf mit dem Nordamerika-Ordner hätte alle 68 Dateien als «kein Gebiet bekannt»
+    übersprungen – genau das ist am 25.11.2026 im Trockenlauf passiert. Beim Hochladen zählt der Dateiname, und der ist über alle
+    Kontinente eindeutig; eine Variable, die man setzen muss, wäre eine Falle für den nächsten Kontinent.
     """
     hier = os.path.dirname(os.path.abspath(__file__))
     sys.path.insert(0, os.path.join(os.path.dirname(hier), "verbund"))
     import gebiete                                     # noqa: PLC0415 – erst hier, der Pfad steht vorher nicht
-    tabelle = {}
-    for g in gebiete.gebiete():
-        eintrag = (g["id"], g["land"], g["name"]["de"], g["name"]["en"], g["typ"])
-        tabelle.setdefault(g["id"], eintrag)
-        tabelle.setdefault(g["poly"].split("/")[-1], eintrag)
-    return tabelle, {l["id"]: l for l in gebiete.laender()}
+    tabelle, laender_tabelle = {}, {}
+    vorher = {k: os.environ.get(k) for k in ("VERBUND", "VERBUND_GEBIETE")}
+    try:
+        for kontinent in sorted(gebiete.KONTINENTE):
+            os.environ["VERBUND"] = kontinent
+            os.environ.pop("VERBUND_GEBIETE", None)    # ein eingeschränkter Bau darf die Zuordnung nicht beschneiden
+            for g in gebiete.gebiete():
+                eintrag = (g["id"], g["land"], g["name"]["de"], g["name"]["en"], g["typ"])
+                tabelle.setdefault(g["id"], eintrag)
+                tabelle.setdefault(g["poly"].split("/")[-1], eintrag)
+            for l in gebiete.laender():
+                laender_tabelle.setdefault(l["id"], l)
+    finally:
+        for k, v in vorher.items():
+            if v is None:
+                os.environ.pop(k, None)
+            else:
+                os.environ[k] = v
+    return tabelle, laender_tabelle
 
 
 def abschnitt_zusammenfuehren(alt, neu):

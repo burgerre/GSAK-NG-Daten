@@ -34,8 +34,41 @@ class GebieteTabelle(unittest.TestCase):
         self.assertGreater(len(laender["us"]["regionen"]), 40)       # 53 US-Gebiete
         self.assertEqual([], laender["mx"]["regionen"])              # Mexiko bleibt ein Teil
 
+    def test_beide_kontinente_ohne_umgebungsvariable(self):
+        """
+        Ohne gesetzte Variable muss die Tabelle **beide** Kontinente kennen.
+
+        Am 25.11.2026 hat der Upload-Trockenlauf alle 68 Nordamerika-Dateien als "kein Gebiet bekannt" uebersprungen:
+        `gebiete.gebiete()` liefert die Tabellen aus `VERBUND` (Standard europa), und der Workflow setzt die Variable nicht.
+        Die beiden Pruefungen darueber haben das nicht gemerkt, weil sie `VERBUND` selbst setzen.
+        """
+        for k in ("VERBUND", "VERBUND_GEBIETE"):
+            os.environ.pop(k, None)
+        tabelle, laender = hochladen.gebiete_tabelle()
+        self.assertIn("switzerland", tabelle)
+        self.assertIn("us-california", tabelle)
+        self.assertIn("ca-quebec", tabelle)
+        self.assertIn("mx", tabelle)
+        self.assertIn("ch", laender)
+        self.assertIn("us", laender)
+
+    def test_eingeschraenkter_bau_beschneidet_die_zuordnung_nicht(self):
+        # VERBUND_GEBIETE schraenkt einen Valhalla-Bau ein; fuer die Zuordnung der Kartendateien darf das nichts aendern.
+        os.environ["VERBUND"] = "europa"
+        os.environ["VERBUND_GEBIETE"] = "ch"
+        tabelle, laender = hochladen.gebiete_tabelle()
+        self.assertIn("us-california", tabelle)
+        self.assertIn("us", laender)
+
+    def test_umgebung_bleibt_unveraendert(self):
+        os.environ["VERBUND"] = "europa"
+        hochladen.gebiete_tabelle()
+        self.assertEqual("europa", os.environ.get("VERBUND"))
+        self.assertIsNone(os.environ.get("VERBUND_GEBIETE"))
+
     def tearDown(self):
         os.environ.pop("VERBUND", None)
+        os.environ.pop("VERBUND_GEBIETE", None)
 
 
 class AbschnittZusammenfuehren(unittest.TestCase):
