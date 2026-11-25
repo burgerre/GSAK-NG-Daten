@@ -312,8 +312,16 @@ def gebiete():
 
 
 def laender():
+    """Länder dieses Verbunds mit ihren Regionen und ihrem Kontinent.
+
+    #1385 Der Kontinent gehört in den Katalog, damit die App neue Gebiete ohne Programmänderung richtig einsortiert. Ohne das Feld
+    landen Kanada, Grönland, Mexiko und die USA unter «Weitere Gebiete», sobald ein App-Stand die eingebaute Rückfalltabelle nicht
+    kennt. Der Nordamerika-Bau vom 16./17.11.2026 lief noch ohne – verbund/katalog.py ergänzt es darum auch nachträglich."""
+    import os
     regionen_tab = tabellen()[1]
-    return [{"id": land, "name": {"de": de, "en": en}, "regionen": [f"{land}-{r[0]}" for r in regionen_tab.get(land, [])]}
+    kontinent = os.environ.get("VERBUND", "europa").strip() or "europa"
+    return [{"id": land, "name": {"de": de, "en": en}, "kontinent": kontinent,
+             "regionen": [f"{land}-{r[0]}" for r in regionen_tab.get(land, [])]}
             for land, _, de, en in auswahl()]
 
 
